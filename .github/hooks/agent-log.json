@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "type": "command",
+      "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File .github\\hooks\\write-hook-log.ps1 -LogPath C:\\Faks\\.NET\\ASP.NET---World-of-Warcraft-builds\\lab-1\\agent_log.txt"}
+    ],
+    "preToolUse": [
+      {
+        "type": "command",
+        "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File .github\\hooks\\write-hook-log.ps1 -LogPath C:\\Faks\\.NET\\ASP.NET---World-of-Warcraft-builds\\lab-1\\agent_log.txt"}
+    ]
+  }
+}
