@@ -16,6 +16,9 @@ public class BossGuide
     [Range(1, 10)]
     public int DifficultyRating { get; set; }
 
+    [StringLength(500)]
+    public string BossImageUrl { get; set; } = string.Empty;
+
     public int RaidGuideId { get; set; }
     public RaidGuide? RaidGuide { get; set; }
 }

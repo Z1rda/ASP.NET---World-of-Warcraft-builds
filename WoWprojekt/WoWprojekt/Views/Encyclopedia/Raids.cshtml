@@ -1,0 +1,101 @@
+@model WoWprojekt.Models.ViewModels.RaidDirectoryPageViewModel
+@{
+    ViewData["Title"] = "Raids";
+}
+
+<h1 class="content-header">Raid Guides</h1>
+<p class="content-subtitle">Encounter overviews and progression notes from current raid archives.</p>
+
+@if (Model.SelectedRaid is not null)
+{
+    <section class="detail-block boss-accordion-section">
+        <h2 class="panel-title">Visible Bosses</h2>
+
+        @if (!Model.VisibleBosses.Any())
+        {
+            <p class="empty-state">No bosses are selected. Choose at least one boss in the right panel.</p>
+        }
+        else
+        {
+            <div class="boss-accordion" aria-label="Selected raid bosses">
+                @foreach (var boss in Model.VisibleBosses)
+                {
+                    var encodedTactics = System.Net.WebUtility.HtmlEncode(boss.Tactics ?? string.Empty)
+                        .Replace("\r\n", "<br />")
+                        .Replace("\n", "<br />")
+                        .Replace("Healer:", "<br />Healer:")
+                        .Replace("Damage Dealer:", "<br />Damage Dealer:");
+                    var fallbackImageUrl = $"https://placehold.co/72x72/1c1f24/e6dec6?text={System.Uri.EscapeDataString(boss.BossName)}";
+                    var bossImage = string.IsNullOrWhiteSpace(boss.BossImageUrl) ? fallbackImageUrl : boss.BossImageUrl;
+                    <details class="boss-accordion-item" open>
+                        <summary>
+                            <span class="boss-summary-main">
+                                <img class="boss-thumb"
+                                     src="@bossImage"
+                                      alt="@($"{boss.BossName} portrait")"
+                                     loading="lazy"
+                                     onerror="this.onerror=null;this.src='https://placehold.co/72x72/1c1f24/e6dec6?text=Boss';" />
+                                <span>@boss.BossName</span>
+                            </span>
+                            <span class="entity-meta">Difficulty @boss.DifficultyRating/10</span>
+                        </summary>
+                        <div class="boss-accordion-content">
+                            <p>@Html.Raw(encodedTactics)</p>
+                        </div>
+                    </details>
+                }
+            </div>
+        }
+    </section>
+}
+else
+{
+    <section class="detail-block boss-accordion-section">
+        <h2 class="panel-title">Visible Bosses</h2>
+        <p class="empty-state">Select a raid from the left navigation to view bosses and encounter details.</p>
+    </section>
+}
+
+@section RightPanel {
+    @if (Model.SelectedRaid is null)
+    {
+        <h2 class="panel-title">Raid Details</h2>
+        <p class="empty-state">Select a raid to inspect bosses, difficulty, and tactical notes.</p>
+    }
+    else
+    {
+        <h2 class="panel-title">@Model.SelectedRaid.RaidName</h2>
+
+        <div class="detail-block">
+            <h3>Preparation</h3>
+            <p>@Model.SelectedRaid.PreparationNotes</p>
+        </div>
+
+        <div class="detail-block">
+            <h3>Bosses</h3>
+            <ul>
+                @foreach (var boss in Model.SelectedRaid.Bosses)
+                {
+                    <li>@boss.BossName (Difficulty @boss.DifficultyRating/10)</li>
+                }
+            </ul>
+        </div>
+
+        <form class="detail-block boss-filter-form" method="get" asp-action="Raids">
+            <h3>Visible In Accordion</h3>
+            <input type="hidden" name="id" value="@Model.SelectedRaid.Id" />
+            <input type="hidden" name="filterApplied" value="true" />
+
+            <div class="boss-filter-list" role="group" aria-label="Select visible bosses">
+                @foreach (var boss in Model.SelectedRaid.Bosses)
+                {
+                    var isChecked = Model.SelectedBossIds.Contains(boss.Id);
+                    <label class="boss-filter-option">
+                        <input type="checkbox" name="selectedBossIds" value="@boss.Id" checked="@isChecked" onchange="this.form.submit()" />
+                        <span>@boss.BossName</span>
+                    </label>
+                }
+            </div>
+        </form>
+    }
+}

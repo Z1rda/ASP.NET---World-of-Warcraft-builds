@@ -1,0 +1,52 @@
+@model WoWprojekt.Models.ViewModels.PlayerProfessionDirectoryPageViewModel
+@{
+    ViewData["Title"] = "Player Professions";
+}
+
+<h1 class="content-header">Player Profession Matrix</h1>
+<p class="content-subtitle">Character-to-profession links and recorded skill levels.</p>
+
+<div class="entity-list">
+    @foreach (var link in Model.Links)
+    {
+        var isActive = Model.SelectedLink?.PlayerProfileId == link.PlayerProfileId
+            && Model.SelectedLink?.ProfessionId == link.ProfessionId;
+
+        <a class="entity-link @(isActive ? "is-active" : string.Empty)"
+           asp-action="PlayerProfessions"
+           asp-route-playerId="@link.PlayerProfileId"
+           asp-route-professionId="@link.ProfessionId">
+            <h2 class="entity-title">@link.PlayerProfile?.CharacterName - @link.Profession?.Name</h2>
+            <p class="entity-meta">Class: @link.PlayerProfile?.ClassType | Skill @link.SkillLevel</p>
+        </a>
+    }
+</div>
+
+@section RightPanel {
+    @if (Model.SelectedLink is null)
+    {
+        <h2 class="panel-title">Link Details</h2>
+        <p class="empty-state">Select an assignment to inspect profession coverage details.</p>
+    }
+    else
+    {
+        <h2 class="panel-title">@Model.SelectedLink.PlayerProfile?.CharacterName</h2>
+
+        <div class="detail-block">
+            <h3>Profession</h3>
+            <p>@Model.SelectedLink.Profession?.Name</p>
+            <p>Skill Level: @Model.SelectedLink.SkillLevel</p>
+        </div>
+
+        <div class="detail-block">
+            <h3>Character</h3>
+            <p>Class: @Model.SelectedLink.PlayerProfile?.ClassType</p>
+            <p>Level: @Model.SelectedLink.PlayerProfile?.Level</p>
+        </div>
+
+        <div class="detail-block">
+            <h3>Profession Benefit</h3>
+            <p>@Model.SelectedLink.Profession?.BenefitDescription</p>
+        </div>
+    }
+}

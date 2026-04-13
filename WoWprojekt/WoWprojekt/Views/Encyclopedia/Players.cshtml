@@ -1,0 +1,59 @@
+@model WoWprojekt.Models.ViewModels.PlayerDirectoryPageViewModel
+@{
+    ViewData["Title"] = "Players";
+}
+
+<h1 class="content-header">Player Profiles</h1>
+<p class="content-subtitle">Read-only roster view for character builds and profession synergies.</p>
+
+<div class="entity-list">
+    @foreach (var player in Model.Players)
+    {
+        var isActive = Model.SelectedPlayer?.Id == player.Id;
+        <a class="entity-link @(isActive ? "is-active" : string.Empty)"
+           asp-action="Players"
+           asp-route-id="@player.Id">
+            <h2 class="entity-title">@player.CharacterName</h2>
+            <p class="entity-meta">Class: @player.ClassType | Level @player.Level</p>
+        </a>
+    }
+</div>
+
+@section RightPanel {
+    @if (Model.SelectedPlayer is null)
+    {
+        <h2 class="panel-title">Player Details</h2>
+        <p class="empty-state">Select a profile to inspect class builds and profession setup.</p>
+    }
+    else
+    {
+        <h2 class="panel-title">@Model.SelectedPlayer.CharacterName</h2>
+
+        <div class="detail-block">
+            <h3>Core</h3>
+            <p>Class: @Model.SelectedPlayer.ClassType</p>
+            <p>Level: @Model.SelectedPlayer.Level</p>
+            <p>Last Updated: @Model.SelectedPlayer.LastUpdatedAt.ToString("yyyy-MM-dd HH:mm") UTC</p>
+        </div>
+
+        <div class="detail-block">
+            <h3>Talent Builds</h3>
+            <ul>
+                @foreach (var build in Model.SelectedPlayer.TalentBuilds)
+                {
+                    <li>@build.BuildName (@build.TalentCode) - @build.Description</li>
+                }
+            </ul>
+        </div>
+
+        <div class="detail-block">
+            <h3>Professions</h3>
+            <ul>
+                @foreach (var prof in Model.SelectedPlayer.Professions)
+                {
+                    <li>@prof.Profession?.Name (Skill @prof.SkillLevel)</li>
+                }
+            </ul>
+        </div>
+    }
+}

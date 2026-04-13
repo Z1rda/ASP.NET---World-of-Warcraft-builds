@@ -1,0 +1,56 @@
+@model WoWprojekt.Models.ViewModels.GuildDirectoryPageViewModel
+@{
+    ViewData["Title"] = "Guilds";
+}
+
+<h1 class="content-header">Guild Register</h1>
+<p class="content-subtitle">Guild records, realm origin, and active member rosters.</p>
+
+<div class="entity-list">
+    @foreach (var guild in Model.Guilds)
+    {
+        var isActive = Model.SelectedGuild?.Id == guild.Id;
+        <a class="entity-link @(isActive ? "is-active" : string.Empty)"
+           asp-action="Guilds"
+           asp-route-id="@guild.Id">
+            <h2 class="entity-title">@guild.Name</h2>
+            <p class="entity-meta">Realm: @guild.Realm | Members: @guild.Members.Count</p>
+        </a>
+    }
+</div>
+
+@section RightPanel {
+    @if (Model.SelectedGuild is null)
+    {
+        <h2 class="panel-title">Guild Details</h2>
+        <p class="empty-state">Select a guild to inspect its realm and member composition.</p>
+    }
+    else
+    {
+        <h2 class="panel-title">@Model.SelectedGuild.Name</h2>
+
+        <div class="detail-block">
+            <h3>Registry</h3>
+            <p>Realm: @Model.SelectedGuild.Realm</p>
+            <p>Created: @Model.SelectedGuild.CreatedAt.ToString("yyyy-MM-dd")</p>
+            <p>Members: @Model.SelectedGuild.Members.Count</p>
+        </div>
+
+        <div class="detail-block">
+            <h3>Roster</h3>
+            @if (Model.SelectedGuild.Members.Any())
+            {
+                <ul>
+                    @foreach (var member in Model.SelectedGuild.Members)
+                    {
+                        <li>@member.CharacterName (@member.ClassType) - Level @member.Level</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="empty-state">No members are currently listed for this guild.</p>
+            }
+        </div>
+    }
+}
