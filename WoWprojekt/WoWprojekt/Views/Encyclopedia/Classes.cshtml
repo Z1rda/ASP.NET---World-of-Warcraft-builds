@@ -1,0 +1,53 @@
+@model WoWprojekt.Models.ViewModels.ClassDirectoryPageViewModel
+@{
+    ViewData["Title"] = "Classes";
+}
+
+<h1 class="content-header">@Model.SelectedClass Roster</h1>
+<p class="content-subtitle">Players currently registered under this class.</p>
+
+<div class="entity-list">
+    @if (Model.Members.Any())
+    {
+        foreach (var member in Model.Members)
+        {
+            var isActiveMember = Model.SelectedPlayer?.Id == member.Id;
+            <a class="entity-link @(isActiveMember ? "is-active" : string.Empty)"
+               asp-action="Classes"
+               asp-route-id="@Model.SelectedClass"
+               asp-route-playerId="@member.Id">
+                <h2 class="entity-title">@member.CharacterName</h2>
+                <p class="entity-meta">Level @member.Level @Model.SelectedClass</p>
+            </a>
+        }
+    }
+    else
+    {
+        <p class="empty-state">No roster entries in this class.</p>
+    }
+</div>
+
+@section RightPanel {
+    <h2 class="panel-title">@(Model.SelectedPlayer?.CharacterName ?? "Select a Player")</h2>
+
+    <div class="detail-block">
+        <h3>Class</h3>
+        <p>@Model.SelectedClass</p>
+    </div>
+
+    <div class="detail-block">
+        <h3>Performance</h3>
+        @if (Model.SelectedPlayer is not null)
+        {
+            <p>Hit Cap: @(Model.SelectedPlayerHitCapPercent?.ToString("0.0") ?? "-")%</p>
+            <p>Average DPS: @(Model.SelectedPlayerAverageDps?.ToString() ?? "-")</p>
+            <p>Crit Chance: @(Model.SelectedPlayerCritChancePercent?.ToString("0.0") ?? "-")%</p>
+            <p>Haste: @(Model.SelectedPlayerHastePercent?.ToString("0.0") ?? "-")%</p>
+            <p>Notes: @(string.IsNullOrWhiteSpace(Model.SelectedPlayerPerformanceNote) ? "-" : Model.SelectedPlayerPerformanceNote)</p>
+        }
+        else
+        {
+            <p class="empty-state">Select a player from the roster to view performance details.</p>
+        }
+    </div>
+}

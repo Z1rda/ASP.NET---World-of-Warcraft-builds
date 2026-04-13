@@ -1,0 +1,49 @@
+@model WoWprojekt.Models.ViewModels.TalentDirectoryPageViewModel
+@{
+    ViewData["Title"] = "Talents";
+}
+
+<h1 class="content-header">Talent Compendium</h1>
+<p class="content-subtitle">Read-only build references linked to active characters.</p>
+
+<div class="entity-list">
+    @foreach (var talent in Model.Talents)
+    {
+        var isActive = Model.SelectedTalent?.Id == talent.Id;
+        <a class="entity-link @(isActive ? "is-active" : string.Empty)"
+           asp-action="Talents"
+           asp-route-id="@talent.Id">
+            <h2 class="entity-title">@talent.BuildName</h2>
+            <p class="entity-meta">@talent.PlayerProfile?.CharacterName | Code: @talent.TalentCode</p>
+        </a>
+    }
+</div>
+
+@section RightPanel {
+    @if (Model.SelectedTalent is null)
+    {
+        <h2 class="panel-title">Talent Details</h2>
+        <p class="empty-state">Select a talent build to inspect setup notes and owner profile.</p>
+    }
+    else
+    {
+        <h2 class="panel-title">@Model.SelectedTalent.BuildName</h2>
+
+        <div class="detail-block">
+            <h3>Build Code</h3>
+            <p>@Model.SelectedTalent.TalentCode</p>
+        </div>
+
+        <div class="detail-block">
+            <h3>Profile</h3>
+            <p>Character: @Model.SelectedTalent.PlayerProfile?.CharacterName</p>
+            <p>Class: @Model.SelectedTalent.PlayerProfile?.ClassType</p>
+            <p>Published: @Model.SelectedTalent.PublishedAt.ToString("yyyy-MM-dd")</p>
+        </div>
+
+        <div class="detail-block">
+            <h3>Description</h3>
+            <p>@Model.SelectedTalent.Description</p>
+        </div>
+    }
+}

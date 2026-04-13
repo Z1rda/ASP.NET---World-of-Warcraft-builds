@@ -1,8 +1,67 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "War Room";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h1 class="content-header">War Room Briefing</h1>
+<p class="content-subtitle">Choose an archive from the left to inspect raiders, classes, professions, and encounter notes.</p>
+
+<div class="entity-list">
+    <a class="entity-link" asp-controller="Encyclopedia" asp-action="Players">
+        <h2 class="entity-title">Player Profiles</h2>
+        <p class="entity-meta">Browse all characters, builds, and profession loadouts.</p>
+    </a>
+
+    <a class="entity-link" asp-controller="Encyclopedia" asp-action="Raids">
+        <h2 class="entity-title">Raid Guides</h2>
+        <p class="entity-meta">Open preparation notes, boss ratings, and tactical reminders.</p>
+    </a>
+
+    <a class="entity-link" asp-controller="Encyclopedia" asp-action="Bosses">
+        <h2 class="entity-title">Boss Archives</h2>
+        <p class="entity-meta">Scan encounter difficulty and focused tactic callouts.</p>
+    </a>
+
+    <a class="entity-link" asp-controller="Encyclopedia" asp-action="Classes">
+        <h2 class="entity-title">Class Registry</h2>
+        <p class="entity-meta">Review active classes and the roster attached to each role.</p>
+    </a>
+
+    <a class="entity-link" asp-controller="Encyclopedia" asp-action="Talents">
+        <h2 class="entity-title">Talent Compendium</h2>
+        <p class="entity-meta">Inspect build codes and role intent for each character setup.</p>
+    </a>
+
+    <a class="entity-link" asp-controller="Encyclopedia" asp-action="Professions">
+        <h2 class="entity-title">Profession Ledger</h2>
+        <p class="entity-meta">Inspect crafting benefits and which raiders carry each trade.</p>
+    </a>
+
+    <a class="entity-link" asp-controller="Encyclopedia" asp-action="PlayerProfessions">
+        <h2 class="entity-title">Player Profession Matrix</h2>
+        <p class="entity-meta">View direct profession links and skill levels across the roster.</p>
+    </a>
+
+    <a class="entity-link" asp-controller="Encyclopedia" asp-action="Guilds">
+        <h2 class="entity-title">Guild Register</h2>
+        <p class="entity-meta">Browse guild realms, inception dates, and member counts.</p>
+    </a>
 </div>
+
+@section RightPanel {
+    <h2 class="panel-title">Current Objective</h2>
+
+    <div class="detail-block">
+        <h3>Directive</h3>
+        <p>Use the central archive pages for read-only preparation and role planning before raid night.</p>
+    </div>
+
+    <div class="detail-block">
+        <h3>Quick Route</h3>
+        <ul>
+            <li>Players: identify builds and profession support.</li>
+            <li>Raids: review boss mechanics and role tasks.</li>
+            <li>Classes and Talents: verify role specialization coverage.</li>
+            <li>Professions and Guilds: verify utility spread and team structure.</li>
+        </ul>
+    </div>
+}

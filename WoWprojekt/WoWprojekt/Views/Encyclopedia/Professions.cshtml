@@ -1,0 +1,60 @@
+@model WoWprojekt.Models.ViewModels.ProfessionDirectoryPageViewModel
+@{
+    ViewData["Title"] = "Professions";
+}
+
+<h1 class="content-header">Profession Ledger</h1>
+<p class="content-subtitle">Trade skill benefits and assignment visibility across active characters.</p>
+
+<div class="entity-list">
+    @foreach (var profession in Model.Professions)
+    {
+        var isActive = Model.SelectedProfession?.Id == profession.Id;
+        var playerCount = Model.Players.Count(p => p.Professions.Any(pp => pp.ProfessionId == profession.Id));
+        <a class="entity-link @(isActive ? "is-active" : string.Empty)"
+           asp-action="Professions"
+           asp-route-id="@profession.Id">
+            <h2 class="entity-title">@profession.Name</h2>
+            <p class="entity-meta">Used by @playerCount player(s)</p>
+        </a>
+    }
+</div>
+
+@section RightPanel {
+    @if (Model.SelectedProfession is null)
+    {
+        <h2 class="panel-title">Profession Details</h2>
+        <p class="empty-state">Select a profession to inspect benefits and assigned players.</p>
+    }
+    else
+    {
+        var users = Model.Players
+            .Where(p => p.Professions.Any(pp => pp.ProfessionId == Model.SelectedProfession.Id))
+            .ToList();
+
+        <h2 class="panel-title">@Model.SelectedProfession.Name</h2>
+
+        <div class="detail-block">
+            <h3>Raid Benefit</h3>
+            <p>@Model.SelectedProfession.BenefitDescription</p>
+        </div>
+
+        <div class="detail-block">
+            <h3>Assigned Players</h3>
+            @if (users.Any())
+            {
+                <ul>
+                    @foreach (var user in users)
+                    {
+                        var skill = user.Professions.First(pp => pp.ProfessionId == Model.SelectedProfession.Id).SkillLevel;
+                        <li>@user.CharacterName (@user.ClassType) - Skill @skill</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="empty-state">No characters are currently linked to this profession.</p>
+            }
+        </div>
+    }
+}

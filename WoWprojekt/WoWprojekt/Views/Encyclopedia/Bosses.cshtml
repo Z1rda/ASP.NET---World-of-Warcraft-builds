@@ -1,0 +1,43 @@
+@model WoWprojekt.Models.ViewModels.BossDirectoryPageViewModel
+@{
+    ViewData["Title"] = "Bosses";
+}
+
+<h1 class="content-header">Boss Archives</h1>
+<p class="content-subtitle">Encounter index with difficulty signal and tactical summaries.</p>
+
+<div class="entity-list">
+    @foreach (var boss in Model.Bosses)
+    {
+        var isActive = Model.SelectedBoss?.Id == boss.Id;
+        <a class="entity-link @(isActive ? "is-active" : string.Empty)"
+           asp-action="Bosses"
+           asp-route-id="@boss.Id">
+            <h2 class="entity-title">@boss.BossName</h2>
+            <p class="entity-meta">Difficulty @boss.DifficultyRating/10 | Raid: @boss.RaidGuide?.RaidName</p>
+        </a>
+    }
+</div>
+
+@section RightPanel {
+    @if (Model.SelectedBoss is null)
+    {
+        <h2 class="panel-title">Boss Details</h2>
+        <p class="empty-state">Select a boss to inspect the raid context and tactics.</p>
+    }
+    else
+    {
+        <h2 class="panel-title">@Model.SelectedBoss.BossName</h2>
+
+        <div class="detail-block">
+            <h3>Encounter</h3>
+            <p>Raid: @Model.SelectedBoss.RaidGuide?.RaidName</p>
+            <p>Difficulty Rating: @Model.SelectedBoss.DifficultyRating/10</p>
+        </div>
+
+        <div class="detail-block">
+            <h3>Tactics</h3>
+            <p>@Model.SelectedBoss.Tactics</p>
+        </div>
+    }
+}
