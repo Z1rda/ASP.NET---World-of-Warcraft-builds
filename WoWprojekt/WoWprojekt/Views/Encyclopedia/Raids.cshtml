@@ -26,15 +26,21 @@
                         .Replace("Healer:", "<br />Healer:")
                         .Replace("Damage Dealer:", "<br />Damage Dealer:");
                     var fallbackImageUrl = $"https://placehold.co/72x72/1c1f24/e6dec6?text={System.Uri.EscapeDataString(boss.BossName)}";
+                    var embeddedFallbackSvg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 72'%3E%3Crect width='72' height='72' fill='%231c1f24'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23e6dec6' font-family='Arial' font-size='12'%3EBoss%3C/text%3E%3C/svg%3E";
                     var bossImage = string.IsNullOrWhiteSpace(boss.BossImageUrl) ? fallbackImageUrl : boss.BossImageUrl;
                     <details class="boss-accordion-item" open>
                         <summary>
                             <span class="boss-summary-main">
-                                <img class="boss-thumb"
-                                     src="@bossImage"
-                                      alt="@($"{boss.BossName} portrait")"
-                                     loading="lazy"
-                                     onerror="this.onerror=null;this.src='https://placehold.co/72x72/1c1f24/e6dec6?text=Boss';" />
+                                <span class="boss-thumb-slot" aria-hidden="true">
+                                    <img class="boss-thumb"
+                                         src="@bossImage"
+                                         alt="@($"{boss.BossName} portrait")"
+                                         loading="lazy"
+                                         decoding="async"
+                                         data-fallback-src="@fallbackImageUrl"
+                                         data-embedded-fallback-src="@embeddedFallbackSvg"
+                                         onerror="if(this.dataset.fallbackApplied==='primary'){this.onerror=null;this.src=this.dataset.embeddedFallbackSrc;this.dataset.fallbackApplied='embedded';return;}this.dataset.fallbackApplied='primary';this.src=this.dataset.fallbackSrc;" />
+                                </span>
                                 <span>@boss.BossName</span>
                             </span>
                             <span class="entity-meta">Difficulty @boss.DifficultyRating/10</span>
