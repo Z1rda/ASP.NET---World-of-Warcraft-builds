@@ -98,7 +98,7 @@ var tankPlayer = new PlayerProfile
     Professions = new List<PlayerProfession>
     {
         new() { PlayerProfileId = 1, ProfessionId = 1, Profession = blacksmithing, SkillLevel = 450 },
-        new() { PlayerProfileId = 1, ProfessionId = 2, Profession = jewelcrafting, SkillLevel = 450 }
+        new() { PlayerProfileId = 1, ProfessionId = 2, Profession = jewelcrafting, SkillLevel = 444 }
     }
 };
 
@@ -116,8 +116,8 @@ var healerPlayer = new PlayerProfile
     },
     Professions = new List<PlayerProfession>
     {
-        new() { PlayerProfileId = 2, ProfessionId = 3, Profession = tailoring, SkillLevel = 450 },
-        new() { PlayerProfileId = 2, ProfessionId = 4, Profession = enchanting, SkillLevel = 450 }
+        new() { PlayerProfileId = 2, ProfessionId = 3, Profession = tailoring, SkillLevel = 447 },
+        new() { PlayerProfileId = 2, ProfessionId = 4, Profession = enchanting, SkillLevel = 439 }
     }
 };
 
@@ -136,7 +136,7 @@ var damagePlayer = new PlayerProfile
     Professions = new List<PlayerProfession>
     {
         new() { PlayerProfileId = 3, ProfessionId = 3, Profession = tailoring, SkillLevel = 450 },
-        new() { PlayerProfileId = 3, ProfessionId = 4, Profession = enchanting, SkillLevel = 450 }
+        new() { PlayerProfileId = 3, ProfessionId = 4, Profession = enchanting, SkillLevel = 446 }
     }
 };
 
@@ -155,6 +155,7 @@ var allProfessionsForGeneration = new List<Profession>
     skinning
 };
 
+//generiranje svih mogucih parova profesija, svaki igrac ima 2 profesije
 var professionPairs = new List<(Profession First, Profession Second)>();
 for (var i = 0; i < allProfessionsForGeneration.Count; i++)
 {
@@ -191,6 +192,8 @@ foreach (var classType in Enum.GetValues<ClassType>())
         var assignedProfessions = professionPairs[pairIndex++];
         var playerId = nextPlayerId++;
         var rank = variant + 1;
+        var firstProfessionSkill = 405 + ((playerId * 11 + assignedProfessions.First.Id * 7) % 46);
+        var secondProfessionSkill = 405 + ((playerId * 13 + assignedProfessions.Second.Id * 5) % 46);
 
         var generatedPlayer = new PlayerProfile
         {
@@ -225,14 +228,14 @@ foreach (var classType in Enum.GetValues<ClassType>())
                     PlayerProfileId = playerId,
                     ProfessionId = assignedProfessions.First.Id,
                     Profession = assignedProfessions.First,
-                    SkillLevel = 450
+                    SkillLevel = firstProfessionSkill
                 },
                 new()
                 {
                     PlayerProfileId = playerId,
                     ProfessionId = assignedProfessions.Second.Id,
                     Profession = assignedProfessions.Second,
-                    SkillLevel = 450
+                    SkillLevel = secondProfessionSkill
                 }
             }
         };
@@ -538,6 +541,34 @@ app.MapControllerRoute(
 
 static string BuildBossImageUrl(string bossName)
 {
+    var bossImageMap = new Dictionary<string, string>(StringComparer.Ordinal)
+    {
+        ["lordmarrowgar"] = "lord-marrowgar.jpg",
+        ["ladydeathwhisper"] = "lady-deathwhisper.jpg",
+        ["gunshipbattle"] = "gunship.jpg",
+        ["deathbringersaurfang"] = "deathbringer-saurfang.jpg",
+        ["festergut"] = "festergut.jpg",
+        ["rotface"] = "rotface.jpg",
+        ["professorputricide"] = "professor-putricide.jpg",
+        ["bloodprincecouncil"] = "blood-prince-council.jpg",
+        ["bloodqueenlanathel"] = "blood-queen-lana'thel.jpg",
+        ["valithriadreamwalker"] = "valithria-dreamwalker.jpg",
+        ["sindragosa"] = "sindragosa.jpg",
+        ["thelichking"] = "the-lich-king.jpg",
+        ["northrendbeasts"] = "beasts-of-northrend.jpg",
+        ["lordjaraxxus"] = "lord-jaraxxus.jpg",
+        ["factionchampions"] = "Faction_Champions.jpg",
+        ["twinvalkyr"] = "twin-val'kyr.jpg",
+        ["anubarak"] = "anub'arak.jpg",
+        ["halion"] = "halion.jpg"
+    };
+
+    var normalizedBossName = string.Concat(bossName.Where(char.IsLetterOrDigit)).ToLowerInvariant();
+    if (bossImageMap.TryGetValue(normalizedBossName, out var fileName))
+    {
+        return $"/images/{Uri.EscapeDataString(fileName)}";
+    }
+
     var encodedName = Uri.EscapeDataString(bossName);
     return $"https://placehold.co/96x96/1c1f24/e6dec6?text={encodedName}";
 }
