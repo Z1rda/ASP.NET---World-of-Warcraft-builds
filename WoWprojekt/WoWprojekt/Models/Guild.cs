@@ -15,5 +15,5 @@ public class Guild
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-    public ICollection<PlayerProfile> Members { get; set; } = new List<PlayerProfile>();
+    public virtual ICollection<PlayerProfile> Members { get; set; } = new List<PlayerProfile>();
 }

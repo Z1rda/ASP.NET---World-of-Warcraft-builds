@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WoWprojekt.Models;
 
@@ -17,8 +18,12 @@ public class BossGuide
     public int DifficultyRating { get; set; }
 
     [StringLength(500)]
+    [Url]
     public string BossImageUrl { get; set; } = string.Empty;
 
+    [Required]
     public int RaidGuideId { get; set; }
-    public RaidGuide? RaidGuide { get; set; }
+
+    [ForeignKey(nameof(RaidGuideId))]
+    public virtual RaidGuide? RaidGuide { get; set; }
 }

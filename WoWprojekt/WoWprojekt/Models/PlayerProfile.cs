@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WoWprojekt.Models;
 
@@ -13,13 +14,16 @@ public class PlayerProfile
     [Range(1, 80)]
     public int Level { get; set; } = 80;
 
+    [Required]
     public ClassType ClassType { get; set; }
 
     public DateTime LastUpdatedAt { get; set; } = DateTime.UtcNow;
 
-    public int? GuildId { get; set; } //uzima se id iz Guild klase, nullable jer igrač možda nije u guildu i sprema kao int
-    public Guild? Guild { get; set; } //isto kao gore samo uzima cijeli guild umjesto samo id-a
+    public int? GuildId { get; set; }
 
-    public ICollection<TalentBuild> TalentBuilds { get; set; } = new List<TalentBuild>();
-    public ICollection<PlayerProfession> Professions { get; set; } = new List<PlayerProfession>();
+    [ForeignKey(nameof(GuildId))]
+    public virtual Guild? Guild { get; set; }
+
+    public virtual ICollection<TalentBuild> TalentBuilds { get; set; } = new List<TalentBuild>();
+    public virtual ICollection<PlayerProfession> Professions { get; set; } = new List<PlayerProfession>();
 }

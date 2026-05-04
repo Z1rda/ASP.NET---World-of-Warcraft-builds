@@ -1,39 +1,57 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using WoWprojekt.Data;
 using WoWprojekt.Models;
 using WoWprojekt.Models.ViewModels;
-using WoWprojekt.Services;
 
 namespace WoWprojekt.Controllers;
 
 public class EncyclopediaController : Controller
 {
-    private readonly IMockRepository _repository;
+    private readonly ApplicationDbContext _db;
 
-    public EncyclopediaController(IMockRepository repository)
+    public EncyclopediaController(ApplicationDbContext db)
     {
-        _repository = repository;
+        _db = db;
     }
 
-    public IActionResult Players(int? id)
+    [HttpGet("directory/players")]
+    public async Task<IActionResult> Players(int? id)
     {
+        var players = await _db.PlayerProfiles
+            .AsNoTracking()
+            .Include(p => p.Guild)
+            .Include(p => p.TalentBuilds)
+            .Include(p => p.Professions)
+            .ThenInclude(pp => pp.Profession)
+            .OrderBy(p => p.Id)
+            .ToListAsync();
+
         var selected = id.HasValue
-            ? _repository.Players.FirstOrDefault(p => p.Id == id.Value)
-            : _repository.Players.FirstOrDefault();
+            ? players.FirstOrDefault(p => p.Id == id.Value)
+            : players.FirstOrDefault();
 
         var vm = new PlayerDirectoryPageViewModel
         {
-            Players = _repository.Players,
+            Players = players,
             SelectedPlayer = selected
         };
 
         return View(vm);
     }
 
-    public IActionResult Raids(int? id, List<int>? selectedBossIds, bool filterApplied = false)
+    [HttpGet("directory/raids")]
+    public async Task<IActionResult> Raids(int? id, List<int>? selectedBossIds, bool filterApplied = false)
     {
+        var raids = await _db.RaidGuides
+            .AsNoTracking()
+            .Include(r => r.Bosses)
+            .OrderBy(r => r.Id)
+            .ToListAsync();
+
         var selected = id.HasValue
-            ? _repository.Raids.FirstOrDefault(r => r.Id == id.Value)
-            : _repository.Raids.FirstOrDefault();
+            ? raids.FirstOrDefault(r => r.Id == id.Value)
+            : raids.FirstOrDefault();
 
         var raidBosses = selected?.Bosses.ToList() ?? new List<BossGuide>();
         var raidBossIdSet = raidBosses.Select(b => b.Id).ToHashSet();
@@ -53,7 +71,7 @@ public class EncyclopediaController : Controller
 
         var vm = new RaidDirectoryPageViewModel
         {
-            Raids = _repository.Raids,
+            Raids = raids,
             SelectedRaid = selected,
             VisibleBosses = visibleBosses,
             SelectedBossIds = sanitizedSelectedIds,
@@ -63,25 +81,48 @@ public class EncyclopediaController : Controller
         return View(vm);
     }
 
-    public IActionResult Professions(int? id)
+    [HttpGet("directory/professions")]
+    public async Task<IActionResult> Professions(int? id)
     {
+        var professions = await _db.Professions
+            .AsNoTracking()
+            .Include(p => p.Players)
+            .ThenInclude(pp => pp.PlayerProfile)
+            .OrderBy(p => p.Id)
+            .ToListAsync();
+
+        var players = await _db.PlayerProfiles
+            .AsNoTracking()
+            .Include(p => p.Professions)
+            .ThenInclude(pp => pp.Profession)
+            .OrderBy(p => p.Id)
+            .ToListAsync();
+
         var selected = id.HasValue
-            ? _repository.Professions.FirstOrDefault(p => p.Id == id.Value)
-            : _repository.Professions.FirstOrDefault();
+            ? professions.FirstOrDefault(p => p.Id == id.Value)
+            : professions.FirstOrDefault();
 
         var vm = new ProfessionDirectoryPageViewModel
         {
-            Professions = _repository.Professions,
-            Players = _repository.Players,
+            Professions = professions,
+            Players = players,
             SelectedProfession = selected
         };
 
         return View(vm);
     }
 
-    public IActionResult Classes(string? id, int? playerId)
+    [HttpGet("directory/classes")]
+    public async Task<IActionResult> Classes(string? id, int? playerId)
     {
-        var classes = _repository.Classes;
+        var classes = Enum.GetValues<ClassType>();
+
+        var players = await _db.PlayerProfiles
+            .AsNoTracking()
+            .Include(p => p.Professions)
+            .ThenInclude(pp => pp.Profession)
+            .OrderBy(p => p.Id)
+            .ToListAsync();
 
         var selectedClass = classes.FirstOrDefault();
         if (!string.IsNullOrWhiteSpace(id) && Enum.TryParse<ClassType>(id, true, out var parsedClass) && classes.Contains(parsedClass))
@@ -89,7 +130,7 @@ public class EncyclopediaController : Controller
             selectedClass = parsedClass;
         }
 
-        var members = _repository.Players.Where(p => p.ClassType == selectedClass).ToList();
+        var members = players.Where(p => p.ClassType == selectedClass).ToList();
         var selectedPlayer = playerId.HasValue
             ? members.FirstOrDefault(m => m.Id == playerId.Value)
             : members.FirstOrDefault();
@@ -100,7 +141,7 @@ public class EncyclopediaController : Controller
         {
             Classes = classes,
             SelectedClass = selectedClass,
-            MemberCounts = classes.ToDictionary(c => c, c => _repository.Players.Count(p => p.ClassType == c)),
+            MemberCounts = classes.ToDictionary(c => c, c => players.Count(p => p.ClassType == c)),
             Members = members,
             SelectedPlayer = selectedPlayer,
             SelectedPlayerHitCapPercent = stats.HitCapPercent,
@@ -113,60 +154,90 @@ public class EncyclopediaController : Controller
         return View(vm);
     }
 
-    public IActionResult Bosses(int? id)
+    [HttpGet("directory/bosses")]
+    public async Task<IActionResult> Bosses(int? id)
     {
+        var bosses = await _db.BossGuides
+            .AsNoTracking()
+            .Include(b => b.RaidGuide)
+            .OrderBy(b => b.Id)
+            .ToListAsync();
+
         var selected = id.HasValue
-            ? _repository.Bosses.FirstOrDefault(b => b.Id == id.Value)
-            : _repository.Bosses.FirstOrDefault();
+            ? bosses.FirstOrDefault(b => b.Id == id.Value)
+            : bosses.FirstOrDefault();
 
         var vm = new BossDirectoryPageViewModel
         {
-            Bosses = _repository.Bosses,
+            Bosses = bosses,
             SelectedBoss = selected
         };
 
         return View(vm);
     }
 
-    public IActionResult Talents(int? id)
+    [HttpGet("directory/talents")]
+    public async Task<IActionResult> Talents(int? id)
     {
+        var talents = await _db.TalentBuilds
+            .AsNoTracking()
+            .Include(t => t.PlayerProfile)
+            .OrderBy(t => t.Id)
+            .ToListAsync();
+
         var selected = id.HasValue
-            ? _repository.TalentBuilds.FirstOrDefault(t => t.Id == id.Value)
-            : _repository.TalentBuilds.FirstOrDefault();
+            ? talents.FirstOrDefault(t => t.Id == id.Value)
+            : talents.FirstOrDefault();
 
         var vm = new TalentDirectoryPageViewModel
         {
-            Talents = _repository.TalentBuilds,
+            Talents = talents,
             SelectedTalent = selected
         };
 
         return View(vm);
     }
 
-    public IActionResult PlayerProfessions(int? playerId, int? professionId)
+    [HttpGet("directory/player-professions")]
+    public async Task<IActionResult> PlayerProfessions(int? playerId, int? professionId)
     {
-        var selected = _repository.PlayerProfessions.FirstOrDefault(pp =>
+        var links = await _db.PlayerProfessions
+            .AsNoTracking()
+            .Include(pp => pp.PlayerProfile)
+            .Include(pp => pp.Profession)
+            .OrderBy(pp => pp.PlayerProfileId)
+            .ThenBy(pp => pp.ProfessionId)
+            .ToListAsync();
+
+        var selected = links.FirstOrDefault(pp =>
             (!playerId.HasValue || pp.PlayerProfileId == playerId.Value) &&
             (!professionId.HasValue || pp.ProfessionId == professionId.Value));
 
         var vm = new PlayerProfessionDirectoryPageViewModel
         {
-            Links = _repository.PlayerProfessions,
+            Links = links,
             SelectedLink = selected
         };
 
         return View(vm);
     }
 
-    public IActionResult Guilds(int? id)
+    [HttpGet("directory/guilds")]
+    public async Task<IActionResult> Guilds(int? id)
     {
+        var guilds = await _db.Guilds
+            .AsNoTracking()
+            .Include(g => g.Members)
+            .OrderBy(g => g.Id)
+            .ToListAsync();
+
         var selected = id.HasValue
-            ? _repository.Guilds.FirstOrDefault(g => g.Id == id.Value)
-            : _repository.Guilds.FirstOrDefault();
+            ? guilds.FirstOrDefault(g => g.Id == id.Value)
+            : guilds.FirstOrDefault();
 
         var vm = new GuildDirectoryPageViewModel
         {
-            Guilds = _repository.Guilds,
+            Guilds = guilds,
             SelectedGuild = selected
         };
 

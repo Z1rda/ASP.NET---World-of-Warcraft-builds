@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WoWprojekt.Models;
 
@@ -19,5 +20,7 @@ public class TalentBuild
     public DateTime PublishedAt { get; set; } = DateTime.UtcNow;
 
     public int PlayerProfileId { get; set; }
-    public PlayerProfile? PlayerProfile { get; set; }
+
+    [ForeignKey(nameof(PlayerProfileId))]
+    public virtual PlayerProfile? PlayerProfile { get; set; }
 }

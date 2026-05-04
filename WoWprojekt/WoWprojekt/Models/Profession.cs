@@ -13,5 +13,5 @@ public class Profession
     [StringLength(500)]
     public string BenefitDescription { get; set; } = string.Empty;
 
-    public ICollection<PlayerProfession> Players { get; set; } = new List<PlayerProfession>();
+    public virtual ICollection<PlayerProfession> Players { get; set; } = new List<PlayerProfession>();
 }

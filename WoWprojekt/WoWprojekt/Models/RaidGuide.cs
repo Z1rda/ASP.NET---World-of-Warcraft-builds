@@ -15,5 +15,5 @@ public class RaidGuide
 
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
-    public ICollection<BossGuide> Bosses { get; set; } = new List<BossGuide>();
+    public virtual ICollection<BossGuide> Bosses { get; set; } = new List<BossGuide>();
 }
