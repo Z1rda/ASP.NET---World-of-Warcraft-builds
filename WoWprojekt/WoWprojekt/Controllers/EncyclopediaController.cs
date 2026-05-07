@@ -244,6 +244,43 @@ public class EncyclopediaController : Controller
         return View(vm);
     }
 
+    [HttpGet("directory/realms")]
+    public async Task<IActionResult> Realms(string? id)
+    {
+        var guilds = await _db.Guilds
+            .AsNoTracking()
+            .Include(g => g.Members)
+            .OrderBy(g => g.Realm)
+            .ThenBy(g => g.Name)
+            .ToListAsync();
+
+        var realms = guilds
+            .GroupBy(g => string.IsNullOrWhiteSpace(g.Realm) ? "Unknown" : g.Realm.Trim())
+            .OrderBy(g => g.Key)
+            .Select(group => new RealmSummary
+            {
+                Name = group.Key,
+                GuildCount = group.Count(),
+                MemberCount = group.Sum(g => g.Members.Count),
+                OldestGuildCreatedAt = group.Min(g => g.CreatedAt),
+                NewestGuildCreatedAt = group.Max(g => g.CreatedAt),
+                Guilds = group.OrderBy(g => g.Name).ToList()
+            })
+            .ToList();
+
+        var selected = !string.IsNullOrWhiteSpace(id)
+            ? realms.FirstOrDefault(r => string.Equals(r.Name, id, StringComparison.OrdinalIgnoreCase))
+            : realms.FirstOrDefault();
+
+        var vm = new RealmDirectoryPageViewModel
+        {
+            Realms = realms,
+            SelectedRealm = selected
+        };
+
+        return View(vm);
+    }
+
     private static (double? HitCapPercent, int? AverageDps, double? CritChancePercent, double? HastePercent, string Note)
         BuildPerformanceStats(PlayerProfile? player)
     {

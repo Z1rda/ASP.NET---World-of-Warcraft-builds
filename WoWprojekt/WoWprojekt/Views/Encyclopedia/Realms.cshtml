@@ -1,0 +1,58 @@
+@model WoWprojekt.Models.ViewModels.RealmDirectoryPageViewModel
+@{
+    ViewData["Title"] = "Realms";
+}
+
+<h1 class="content-header">Realm Census</h1>
+<p class="content-subtitle">Realm totals, guild density, and roster scale across the coalition.</p>
+
+<div class="entity-list">
+    @foreach (var realm in Model.Realms)
+    {
+        var isActive = Model.SelectedRealm?.Name != null
+            && string.Equals(Model.SelectedRealm.Name, realm.Name, StringComparison.OrdinalIgnoreCase);
+        <a class="entity-link @(isActive ? "is-active" : string.Empty)"
+           asp-action="Realms"
+           asp-route-id="@realm.Name">
+            <h2 class="entity-title">@realm.Name</h2>
+            <p class="entity-meta">Guilds: @realm.GuildCount | Members: @realm.MemberCount</p>
+        </a>
+    }
+</div>
+
+@section RightPanel {
+    @if (Model.SelectedRealm is null)
+    {
+        <h2 class="panel-title">Realm Details</h2>
+        <p class="empty-state">Select a realm to review its guild roster and creation timeline.</p>
+    }
+    else
+    {
+        <h2 class="panel-title">@Model.SelectedRealm.Name</h2>
+
+        <div class="detail-block">
+            <h3>Realm Overview</h3>
+            <p>Guilds: @Model.SelectedRealm.GuildCount</p>
+            <p>Members: @Model.SelectedRealm.MemberCount</p>
+            <p>Oldest Guild: @(Model.SelectedRealm.OldestGuildCreatedAt?.ToString("yyyy-MM-dd") ?? "Unknown")</p>
+            <p>Newest Guild: @(Model.SelectedRealm.NewestGuildCreatedAt?.ToString("yyyy-MM-dd") ?? "Unknown")</p>
+        </div>
+
+        <div class="detail-block">
+            <h3>Guild Roster</h3>
+            @if (Model.SelectedRealm.Guilds.Any())
+            {
+                <ul>
+                    @foreach (var guild in Model.SelectedRealm.Guilds)
+                    {
+                        <li>@guild.Name (Members: @guild.Members.Count)</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="empty-state">No guilds are currently recorded for this realm.</p>
+            }
+        </div>
+    }
+}

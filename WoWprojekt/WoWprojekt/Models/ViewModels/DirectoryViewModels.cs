@@ -59,3 +59,19 @@ public class GuildDirectoryPageViewModel
     public IReadOnlyList<Guild> Guilds { get; set; } = Array.Empty<Guild>();
     public Guild? SelectedGuild { get; set; }
 }
+
+public class RealmDirectoryPageViewModel
+{
+    public IReadOnlyList<RealmSummary> Realms { get; set; } = Array.Empty<RealmSummary>();
+    public RealmSummary? SelectedRealm { get; set; }
+}
+
+public class RealmSummary
+{
+    public string Name { get; set; } = string.Empty;
+    public int GuildCount { get; set; }
+    public int MemberCount { get; set; }
+    public DateTime? OldestGuildCreatedAt { get; set; }
+    public DateTime? NewestGuildCreatedAt { get; set; }
+    public IReadOnlyList<Guild> Guilds { get; set; } = Array.Empty<Guild>();
+}
