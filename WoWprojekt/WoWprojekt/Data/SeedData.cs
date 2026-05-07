@@ -8,6 +8,7 @@ public static class SeedData
     {
         if (context.PlayerProfiles.Any())
         {
+            EnsureGuilds(context);
             return;
         }
 
@@ -259,15 +260,42 @@ public static class SeedData
                 Id = 1,
                 Name = "Northern Vigil",
                 Realm = "Icecrown",
-                CreatedAt = DateTime.UtcNow,
-                Members = players.ToList()
+                CreatedAt = DateTime.UtcNow.AddDays(-120),
+                Members = new List<PlayerProfile>()
+            },
+            new()
+            {
+                Id = 2,
+                Name = "Frostbound Oath",
+                Realm = "Howling Fjord",
+                CreatedAt = DateTime.UtcNow.AddDays(-95),
+                Members = new List<PlayerProfile>()
+            },
+            new()
+            {
+                Id = 3,
+                Name = "Sunspire Accord",
+                Realm = "Silvermoon",
+                CreatedAt = DateTime.UtcNow.AddDays(-75),
+                Members = new List<PlayerProfile>()
+            },
+            new()
+            {
+                Id = 4,
+                Name = "Ashen Dawn",
+                Realm = "Dragonblight",
+                CreatedAt = DateTime.UtcNow.AddDays(-60),
+                Members = new List<PlayerProfile>()
             }
         };
 
-        foreach (var player in players)
+        for (var index = 0; index < players.Count; index++)
         {
-            player.GuildId = guilds[0].Id;
-            player.Guild = guilds[0];
+            var guild = guilds[index % guilds.Count];
+            var player = players[index];
+            guild.Members.Add(player);
+            player.GuildId = guild.Id;
+            player.Guild = guild;
         }
 
         var raidGuides = new List<RaidGuide>
@@ -521,6 +549,81 @@ public static class SeedData
         context.PlayerProfiles.AddRange(players);
         context.Guilds.AddRange(guilds);
         context.RaidGuides.AddRange(raidGuides);
+        context.SaveChanges();
+    }
+
+    private static void EnsureGuilds(ApplicationDbContext context)
+    {
+        var desiredGuilds = new List<Guild>
+        {
+            new()
+            {
+                Name = "Northern Vigil",
+                Realm = "Icecrown",
+                CreatedAt = DateTime.UtcNow.AddDays(-120)
+            },
+            new()
+            {
+                Name = "Frostbound Oath",
+                Realm = "Howling Fjord",
+                CreatedAt = DateTime.UtcNow.AddDays(-95)
+            },
+            new()
+            {
+                Name = "Sunspire Accord",
+                Realm = "Silvermoon",
+                CreatedAt = DateTime.UtcNow.AddDays(-75)
+            },
+            new()
+            {
+                Name = "Ashen Dawn",
+                Realm = "Dragonblight",
+                CreatedAt = DateTime.UtcNow.AddDays(-60)
+            }
+        };
+
+        var added = false;
+        foreach (var guild in desiredGuilds)
+        {
+            if (!context.Guilds.Any(g => g.Name == guild.Name))
+            {
+                context.Guilds.Add(guild);
+                added = true;
+            }
+        }
+
+        if (added)
+        {
+            context.SaveChanges();
+        }
+
+        var guilds = context.Guilds
+            .OrderBy(g => g.Id)
+            .ToList();
+
+        if (!guilds.Any())
+        {
+            return;
+        }
+
+        var unassignedPlayers = context.PlayerProfiles
+            .Where(p => p.GuildId == null)
+            .OrderBy(p => p.Id)
+            .ToList();
+
+        if (!unassignedPlayers.Any())
+        {
+            return;
+        }
+
+        for (var index = 0; index < unassignedPlayers.Count; index++)
+        {
+            var guild = guilds[index % guilds.Count];
+            var player = unassignedPlayers[index];
+            player.GuildId = guild.Id;
+            player.Guild = guild;
+        }
+
         context.SaveChanges();
     }
 
