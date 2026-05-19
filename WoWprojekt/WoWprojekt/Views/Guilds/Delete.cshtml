@@ -1,0 +1,20 @@
+@model WoWprojekt.Models.Guild
+@{
+    ViewData["Title"] = "Delete Guild";
+}
+
+<h1 class="content-header">Delete Guild</h1>
+
+<p class="content-subtitle">Confirm removal of this guild.</p>
+
+<div class="detail-block">
+    <p>Name: @Model.Name</p>
+    <p>Realm: @Model.Realm</p>
+    <p>Members: @Model.Members.Count</p>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button class="btn-danger" type="submit">Delete</button>
+    <a class="btn-ghost" asp-action="Index">Back</a>
+</form>

@@ -25,3 +25,4 @@
 - Talents: ?id={talentId}
 - PlayerProfessions: ?playerId={playerId}&professionId={professionId}
 - Guilds: ?id={guildId}
+- Realms: ?id={realmName}

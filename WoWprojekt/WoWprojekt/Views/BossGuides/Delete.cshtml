@@ -1,0 +1,20 @@
+@model WoWprojekt.Models.BossGuide
+@{
+    ViewData["Title"] = "Delete Boss";
+}
+
+<h1 class="content-header">Delete Boss Guide</h1>
+
+<p class="content-subtitle">Confirm removal of this boss guide.</p>
+
+<div class="detail-block">
+    <p>Name: @Model.BossName</p>
+    <p>Raid: @(Model.RaidGuide?.RaidName ?? "Unknown")</p>
+    <p>Difficulty: @Model.DifficultyRating/10</p>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button class="btn-danger" type="submit">Delete</button>
+    <a class="btn-ghost" asp-action="Index">Back</a>
+</form>

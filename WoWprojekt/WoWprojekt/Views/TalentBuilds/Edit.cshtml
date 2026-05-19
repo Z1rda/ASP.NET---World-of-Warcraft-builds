@@ -1,0 +1,54 @@
+@model WoWprojekt.Models.TalentBuild
+@{
+    ViewData["Title"] = "Edit Talent Build";
+}
+
+<h1 class="content-header">Edit Talent Build</h1>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="detail-block" asp-validation-summary="ModelOnly"></div>
+
+    <div class="detail-block">
+        <label asp-for="BuildName"></label>
+        <input asp-for="BuildName" class="search-input" />
+        <span asp-validation-for="BuildName"></span>
+    </div>
+
+    <div class="detail-block">
+        <label asp-for="TalentCode"></label>
+        <input asp-for="TalentCode" class="search-input" />
+        <span asp-validation-for="TalentCode"></span>
+    </div>
+
+    <div class="detail-block">
+        @{
+            var playerOptions = ViewData["PlayerProfileId"] as Microsoft.AspNetCore.Mvc.Rendering.SelectList;
+            var selectedPlayerName = playerOptions?.FirstOrDefault(option => option.Value == Model.PlayerProfileId.ToString())?.Text;
+        }
+        <partial name="_AutocompleteSelect" view-data="@(new ViewDataDictionary(ViewData)
+        {
+            { "Name", "PlayerProfileId" },
+            { "Label", "Player" },
+            { "Url", "/Players/Search" },
+            { "Placeholder", "Search players..." },
+            { "SelectedId", Model.PlayerProfileId },
+            { "SelectedText", selectedPlayerName ?? string.Empty },
+            { "InputId", "PlayerProfileId_autocomplete" }
+        })" />
+        <span asp-validation-for="PlayerProfileId"></span>
+    </div>
+
+    <div class="detail-block">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="search-input" rows="4"></textarea>
+        <span asp-validation-for="Description"></span>
+    </div>
+
+    <button class="btn-primary" type="submit">Save</button>
+    <a class="btn-ghost" asp-action="Index">Back</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

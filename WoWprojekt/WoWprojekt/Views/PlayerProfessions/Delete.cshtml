@@ -1,0 +1,21 @@
+@model WoWprojekt.Models.PlayerProfession
+@{
+    ViewData["Title"] = "Delete Player Profession";
+}
+
+<h1 class="content-header">Delete Player Profession</h1>
+
+<p class="content-subtitle">Confirm removal of this player-profession link.</p>
+
+<div class="detail-block">
+    <p>Player: @(Model.PlayerProfile?.CharacterName ?? "Unknown")</p>
+    <p>Profession: @(Model.Profession?.Name ?? "Unknown")</p>
+    <p>Skill Level: @Model.SkillLevel</p>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="PlayerProfileId" />
+    <input type="hidden" asp-for="ProfessionId" />
+    <button class="btn-danger" type="submit">Delete</button>
+    <a class="btn-ghost" asp-action="Index">Back</a>
+</form>

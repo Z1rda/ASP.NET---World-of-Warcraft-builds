@@ -1,0 +1,35 @@
+@model WoWprojekt.Models.PlayerProfession
+@{
+    ViewData["Title"] = "Edit Player Profession";
+}
+
+<h1 class="content-header">Edit Player Profession</h1>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="PlayerProfileId" />
+    <input type="hidden" asp-for="ProfessionId" />
+    <div class="detail-block" asp-validation-summary="ModelOnly"></div>
+
+    <div class="detail-block">
+        <label>Player</label>
+        <p>@(Model.PlayerProfile?.CharacterName ?? "Unknown")</p>
+    </div>
+
+    <div class="detail-block">
+        <label>Profession</label>
+        <p>@(Model.Profession?.Name ?? "Unknown")</p>
+    </div>
+
+    <div class="detail-block">
+        <label asp-for="SkillLevel"></label>
+        <input asp-for="SkillLevel" class="search-input" />
+        <span asp-validation-for="SkillLevel"></span>
+    </div>
+
+    <button class="btn-primary" type="submit">Save</button>
+    <a class="btn-ghost" asp-action="Index">Back</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

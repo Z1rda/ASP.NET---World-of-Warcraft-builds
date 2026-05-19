@@ -1,0 +1,22 @@
+@model WoWprojekt.Models.TalentBuild
+@{
+    ViewData["Title"] = "Talent Build Details";
+}
+
+<h1 class="content-header">Talent Build Details</h1>
+
+<div class="detail-block">
+    <h3>Overview</h3>
+    <p>Name: @Model.BuildName</p>
+    <p>Code: @Model.TalentCode</p>
+    <p>Player: @(Model.PlayerProfile?.CharacterName ?? "Unknown")</p>
+    <p>Published: @Model.PublishedAt.ToString("yyyy-MM-dd")</p>
+</div>
+
+<div class="detail-block">
+    <h3>Description</h3>
+    <p>@Model.Description</p>
+</div>
+
+<a class="btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+<a class="btn-ghost" asp-action="Index">Back</a>

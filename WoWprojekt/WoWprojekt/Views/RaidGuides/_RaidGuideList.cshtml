@@ -1,0 +1,27 @@
+@model WoWprojekt.Models.ViewModels.RaidGuideIndexViewModel
+
+@if (!Model.Raids.Any())
+{
+    <p class="empty-state">No raid guides found.</p>
+}
+else
+{
+    <div class="crud-list">
+        @foreach (var raid in Model.Raids)
+        {
+            <div class="crud-list-item">
+                <div class="crud-item-main">
+                    <h2 class="entity-title">@raid.RaidName</h2>
+                    <p class="crud-meta">Bosses: @raid.Bosses.Count | Updated @raid.UpdatedAt.ToString("yyyy-MM-dd")</p>
+                </div>
+                <div class="crud-actions">
+                    <a class="btn-ghost" asp-action="Details" asp-route-id="@raid.Id">Details</a>
+                    <a class="btn-ghost" asp-action="Edit" asp-route-id="@raid.Id">Edit</a>
+                    <form class="inline-form" asp-action="Delete" asp-route-id="@raid.Id" method="post">
+                        <button class="btn-danger" type="submit">Delete</button>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+}

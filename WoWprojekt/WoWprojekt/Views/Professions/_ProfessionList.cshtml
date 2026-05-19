@@ -1,0 +1,27 @@
+@model WoWprojekt.Models.ViewModels.ProfessionIndexViewModel
+
+@if (!Model.Professions.Any())
+{
+    <p class="empty-state">No professions found.</p>
+}
+else
+{
+    <div class="crud-list">
+        @foreach (var profession in Model.Professions)
+        {
+            <div class="crud-list-item">
+                <div class="crud-item-main">
+                    <h2 class="entity-title">@profession.Name</h2>
+                    <p class="crud-meta">@profession.BenefitDescription</p>
+                </div>
+                <div class="crud-actions">
+                    <a class="btn-ghost" asp-action="Details" asp-route-id="@profession.Id">Details</a>
+                    <a class="btn-ghost" asp-action="Edit" asp-route-id="@profession.Id">Edit</a>
+                    <form class="inline-form" asp-action="Delete" asp-route-id="@profession.Id" method="post">
+                        <button class="btn-danger" type="submit">Delete</button>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+}

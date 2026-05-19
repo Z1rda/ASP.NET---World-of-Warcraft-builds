@@ -1,0 +1,30 @@
+@model WoWprojekt.Models.RaidGuide
+@{
+    ViewData["Title"] = "Edit Raid";
+}
+
+<h1 class="content-header">Edit Raid Guide</h1>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="detail-block" asp-validation-summary="ModelOnly"></div>
+
+    <div class="detail-block">
+        <label asp-for="RaidName"></label>
+        <input asp-for="RaidName" class="search-input" />
+        <span asp-validation-for="RaidName"></span>
+    </div>
+
+    <div class="detail-block">
+        <label asp-for="PreparationNotes"></label>
+        <textarea asp-for="PreparationNotes" class="search-input" rows="6"></textarea>
+        <span asp-validation-for="PreparationNotes"></span>
+    </div>
+
+    <button class="btn-primary" type="submit">Save</button>
+    <a class="btn-ghost" asp-action="Index">Back</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

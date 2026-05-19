@@ -1,0 +1,33 @@
+@{
+    var name = (ViewData["Name"] as string) ?? string.Empty;
+    var label = (ViewData["Label"] as string) ?? name;
+    var selectedId = ViewData["SelectedId"]?.ToString() ?? string.Empty;
+    var selectedText = ViewData["SelectedText"]?.ToString() ?? string.Empty;
+    var placeholder = (ViewData["Placeholder"] as string) ?? "Search...";
+    var url = (ViewData["Url"] as string) ?? string.Empty;
+    var inputId = (ViewData["InputId"] as string) ?? (string.IsNullOrWhiteSpace(name) ? "autocomplete_input" : $"{name}_autocomplete");
+    var previewCount = ViewData["PreviewCount"]?.ToString() ?? "4";
+}
+
+<div class="autocomplete-select"
+     data-autocomplete-url="@url"
+     data-autocomplete-name="@name"
+     data-autocomplete-placeholder="@placeholder"
+     data-autocomplete-preview-count="@previewCount">
+    <label for="@inputId">@label</label>
+    <input type="hidden" name="@name" value="@selectedId" />
+    <input type="text"
+           id="@inputId"
+           class="search-input autocomplete-input"
+           value="@selectedText"
+           placeholder="@placeholder"
+           autocomplete="off"
+           spellcheck="false"
+           aria-expanded="false" />
+
+    <div class="autocomplete-panel" role="listbox" aria-hidden="true">
+        <div class="autocomplete-status is-hidden" data-autocomplete-status></div>
+        <ul class="autocomplete-results" data-autocomplete-results></ul>
+        <button class="autocomplete-more is-hidden" type="button" data-autocomplete-more>Show more</button>
+    </div>
+</div>

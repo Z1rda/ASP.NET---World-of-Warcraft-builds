@@ -1,0 +1,75 @@
+@model WoWprojekt.Models.ViewModels.GuildIndexViewModel
+@{
+    ViewData["Title"] = "Guilds";
+}
+
+<div class="crud-header">
+    <h1 class="content-header">Guild Register</h1>
+    <a class="btn-primary" asp-action="Create">Add</a>
+</div>
+
+<div class="crud-toolbar">
+    <label class="search-label" for="guild-search">Search guilds</label>
+    <div class="crud-search">
+        <div class="autocomplete-search">
+            <input id="guild-search"
+                   class="search-input autocomplete-input"
+                   type="search"
+                   placeholder="Search guild names or realms"
+                   value="@Model.SearchQuery"
+                   data-suggest-url="@Url.Action("Suggest")"
+                   data-preview-count="4"
+                   autocomplete="off"
+                   spellcheck="false"
+                   aria-expanded="false" />
+            <div class="autocomplete-panel" role="listbox" aria-hidden="true">
+                <div class="autocomplete-status is-hidden" data-autocomplete-status></div>
+                <ul class="autocomplete-results" data-autocomplete-results></ul>
+                <button class="autocomplete-more is-hidden" type="button" data-autocomplete-more>Show more</button>
+            </div>
+        </div>
+        <button id="guild-search-btn" class="search-button" type="button">Search</button>
+    </div>
+</div>
+
+<div id="guild-list" class="crud-list-container">
+    @await Html.PartialAsync("_GuildList", Model)
+</div>
+
+@section Scripts {
+    <script>
+        (() => {
+            const input = document.getElementById("guild-search");
+            const button = document.getElementById("guild-search-btn");
+            const list = document.getElementById("guild-list");
+            const endpoint = "@Url.Action("Search")";
+
+            if (!input || !button || !list || !endpoint) {
+                return;
+            }
+
+            const runSearch = () => {
+                const query = encodeURIComponent(input.value || "");
+                list.classList.add("is-loading");
+
+                fetch(`${endpoint}?q=${query}`, { headers: { "X-Requested-With": "XMLHttpRequest" } })
+                    .then((response) => response.text())
+                    .then((html) => {
+                        list.innerHTML = html;
+                    })
+                    .catch(() => {})
+                    .finally(() => {
+                        list.classList.remove("is-loading");
+                    });
+            };
+
+            button.addEventListener("click", runSearch);
+            input.addEventListener("keydown", (event) => {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    runSearch();
+                }
+            });
+        })();
+    </script>
+}

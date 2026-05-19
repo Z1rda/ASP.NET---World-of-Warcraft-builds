@@ -1,0 +1,16 @@
+@model WoWprojekt.Models.PlayerProfession
+@{
+    ViewData["Title"] = "Player Profession Details";
+}
+
+<h1 class="content-header">Player Profession Details</h1>
+
+<div class="detail-block">
+    <h3>Link</h3>
+    <p>Player: @(Model.PlayerProfile?.CharacterName ?? "Unknown")</p>
+    <p>Profession: @(Model.Profession?.Name ?? "Unknown")</p>
+    <p>Skill Level: @Model.SkillLevel</p>
+</div>
+
+<a class="btn-primary" asp-action="Edit" asp-route-playerId="@Model.PlayerProfileId" asp-route-professionId="@Model.ProfessionId">Edit</a>
+<a class="btn-ghost" asp-action="Index">Back</a>

@@ -1,0 +1,59 @@
+@model WoWprojekt.Models.PlayerProfession
+@{
+    ViewData["Title"] = "Create Player Profession";
+}
+
+<h1 class="content-header">Create Player Profession</h1>
+
+<form asp-action="Create" method="post">
+    <div class="detail-block" asp-validation-summary="ModelOnly"></div>
+
+    <div class="detail-block">
+        @{
+            var playerOptions = ViewData["PlayerProfileId"] as Microsoft.AspNetCore.Mvc.Rendering.SelectList;
+            var selectedPlayerName = playerOptions?.FirstOrDefault(option => option.Value == Model.PlayerProfileId.ToString())?.Text;
+        }
+        <partial name="_AutocompleteSelect" view-data="@(new ViewDataDictionary(ViewData)
+        {
+            { "Name", "PlayerProfileId" },
+            { "Label", "Player" },
+            { "Url", "/Players/Search" },
+            { "Placeholder", "Search players..." },
+            { "SelectedId", Model.PlayerProfileId },
+            { "SelectedText", selectedPlayerName ?? string.Empty },
+            { "InputId", "PlayerProfileId_autocomplete" }
+        })" />
+        <span asp-validation-for="PlayerProfileId"></span>
+    </div>
+
+    <div class="detail-block">
+        @{
+            var professionOptions = ViewData["ProfessionId"] as Microsoft.AspNetCore.Mvc.Rendering.SelectList;
+            var selectedProfessionName = professionOptions?.FirstOrDefault(option => option.Value == Model.ProfessionId.ToString())?.Text;
+        }
+        <partial name="_AutocompleteSelect" view-data="@(new ViewDataDictionary(ViewData)
+        {
+            { "Name", "ProfessionId" },
+            { "Label", "Profession" },
+            { "Url", "/Professions/Lookup" },
+            { "Placeholder", "Search professions..." },
+            { "SelectedId", Model.ProfessionId },
+            { "SelectedText", selectedProfessionName ?? string.Empty },
+            { "InputId", "ProfessionId_autocomplete" }
+        })" />
+        <span asp-validation-for="ProfessionId"></span>
+    </div>
+
+    <div class="detail-block">
+        <label asp-for="SkillLevel"></label>
+        <input asp-for="SkillLevel" class="search-input" />
+        <span asp-validation-for="SkillLevel"></span>
+    </div>
+
+    <button class="btn-primary" type="submit">Save</button>
+    <a class="btn-ghost" asp-action="Index">Back</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

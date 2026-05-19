@@ -1,0 +1,60 @@
+@model WoWprojekt.Models.BossGuide
+@{
+    ViewData["Title"] = "Edit Boss";
+}
+
+<h1 class="content-header">Edit Boss Guide</h1>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="detail-block" asp-validation-summary="ModelOnly"></div>
+
+    <div class="detail-block">
+        <label asp-for="BossName"></label>
+        <input asp-for="BossName" class="search-input" />
+        <span asp-validation-for="BossName"></span>
+    </div>
+
+    <div class="detail-block">
+        @{
+            var raidOptions = ViewData["RaidGuideId"] as Microsoft.AspNetCore.Mvc.Rendering.SelectList;
+            var selectedRaidName = raidOptions?.FirstOrDefault(option => option.Value == Model.RaidGuideId.ToString())?.Text;
+        }
+        <partial name="_AutocompleteSelect" view-data="@(new ViewDataDictionary(ViewData)
+        {
+            { "Name", "RaidGuideId" },
+            { "Label", "Raid" },
+            { "Url", "/Raids/Search" },
+            { "Placeholder", "Search raids..." },
+            { "SelectedId", Model.RaidGuideId },
+            { "SelectedText", selectedRaidName ?? string.Empty },
+            { "InputId", "RaidGuideId_autocomplete" }
+        })" />
+        <span asp-validation-for="RaidGuideId"></span>
+    </div>
+
+    <div class="detail-block">
+        <label asp-for="DifficultyRating"></label>
+        <input asp-for="DifficultyRating" class="search-input" />
+        <span asp-validation-for="DifficultyRating"></span>
+    </div>
+
+    <div class="detail-block">
+        <label asp-for="BossImageUrl"></label>
+        <input asp-for="BossImageUrl" class="search-input" />
+        <span asp-validation-for="BossImageUrl"></span>
+    </div>
+
+    <div class="detail-block">
+        <label asp-for="Tactics"></label>
+        <textarea asp-for="Tactics" class="search-input" rows="6"></textarea>
+        <span asp-validation-for="Tactics"></span>
+    </div>
+
+    <button class="btn-primary" type="submit">Save</button>
+    <a class="btn-ghost" asp-action="Index">Back</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

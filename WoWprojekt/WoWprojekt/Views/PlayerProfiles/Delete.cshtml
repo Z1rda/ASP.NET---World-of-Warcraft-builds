@@ -1,0 +1,21 @@
+@model WoWprojekt.Models.PlayerProfile
+@{
+    ViewData["Title"] = "Delete Player";
+}
+
+<h1 class="content-header">Delete Player Profile</h1>
+
+<p class="content-subtitle">Confirm removal of this player profile.</p>
+
+<div class="detail-block">
+    <p>Name: @Model.CharacterName</p>
+    <p>Class: @Model.ClassType</p>
+    <p>Level: @Model.Level</p>
+    <p>Guild: @(Model.Guild?.Name ?? "No guild")</p>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button class="btn-danger" type="submit">Delete</button>
+    <a class="btn-ghost" asp-action="Index">Back</a>
+</form>

@@ -1,0 +1,19 @@
+@model WoWprojekt.Models.Profession
+@{
+    ViewData["Title"] = "Delete Profession";
+}
+
+<h1 class="content-header">Delete Profession</h1>
+
+<p class="content-subtitle">Confirm removal of this profession.</p>
+
+<div class="detail-block">
+    <p>Name: @Model.Name</p>
+    <p>Benefit: @Model.BenefitDescription</p>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button class="btn-danger" type="submit">Delete</button>
+    <a class="btn-ghost" asp-action="Index">Back</a>
+</form>

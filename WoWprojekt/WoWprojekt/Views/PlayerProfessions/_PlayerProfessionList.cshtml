@@ -1,0 +1,29 @@
+@model WoWprojekt.Models.ViewModels.PlayerProfessionIndexViewModel
+
+@if (!Model.PlayerProfessions.Any())
+{
+    <p class="empty-state">No player profession links found.</p>
+}
+else
+{
+    <div class="crud-list">
+        @foreach (var link in Model.PlayerProfessions)
+        {
+            var playerName = link.PlayerProfile?.CharacterName ?? "Unknown player";
+            var professionName = link.Profession?.Name ?? "Unknown profession";
+            <div class="crud-list-item">
+                <div class="crud-item-main">
+                    <h2 class="entity-title">@playerName</h2>
+                    <p class="crud-meta">@professionName | Skill @link.SkillLevel</p>
+                </div>
+                <div class="crud-actions">
+                    <a class="btn-ghost" asp-action="Details" asp-route-playerId="@link.PlayerProfileId" asp-route-professionId="@link.ProfessionId">Details</a>
+                    <a class="btn-ghost" asp-action="Edit" asp-route-playerId="@link.PlayerProfileId" asp-route-professionId="@link.ProfessionId">Edit</a>
+                    <form class="inline-form" asp-action="Delete" asp-route-playerId="@link.PlayerProfileId" asp-route-professionId="@link.ProfessionId" method="post">
+                        <button class="btn-danger" type="submit">Delete</button>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+}

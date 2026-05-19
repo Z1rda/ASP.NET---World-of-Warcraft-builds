@@ -1,0 +1,42 @@
+@model WoWprojekt.Models.PlayerProfile
+@{
+    ViewData["Title"] = "Create Player";
+}
+
+<h1 class="content-header">Create Player Profile</h1>
+
+<form asp-action="Create" method="post">
+    <div class="detail-block" asp-validation-summary="ModelOnly"></div>
+
+    <div class="detail-block">
+        <label asp-for="CharacterName"></label>
+        <input asp-for="CharacterName" class="search-input" />
+        <span asp-validation-for="CharacterName"></span>
+    </div>
+
+    <div class="detail-block">
+        <label asp-for="Level"></label>
+        <input asp-for="Level" class="search-input" />
+        <span asp-validation-for="Level"></span>
+    </div>
+
+    <div class="detail-block">
+        <label asp-for="ClassType"></label>
+        <select asp-for="ClassType" asp-items="ViewBag.ClassTypes" class="search-input"></select>
+        <span asp-validation-for="ClassType"></span>
+    </div>
+
+    <div class="detail-block">
+        <label asp-for="GuildId">Guild</label>
+        <select asp-for="GuildId" asp-items="ViewBag.GuildId" class="search-input">
+            <option value="">No guild</option>
+        </select>
+    </div>
+
+    <button class="btn-primary" type="submit">Save</button>
+    <a class="btn-ghost" asp-action="Index">Back</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

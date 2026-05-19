@@ -1,0 +1,20 @@
+@model WoWprojekt.Models.RaidGuide
+@{
+    ViewData["Title"] = "Delete Raid";
+}
+
+<h1 class="content-header">Delete Raid Guide</h1>
+
+<p class="content-subtitle">Confirm removal of this raid guide.</p>
+
+<div class="detail-block">
+    <p>Name: @Model.RaidName</p>
+    <p>Updated: @Model.UpdatedAt.ToString("yyyy-MM-dd")</p>
+    <p>Bosses: @Model.Bosses.Count</p>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button class="btn-danger" type="submit">Delete</button>
+    <a class="btn-ghost" asp-action="Index">Back</a>
+</form>

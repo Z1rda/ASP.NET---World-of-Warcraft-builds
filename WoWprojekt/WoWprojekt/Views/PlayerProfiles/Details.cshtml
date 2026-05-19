@@ -1,0 +1,52 @@
+@model WoWprojekt.Models.PlayerProfile
+@{
+    ViewData["Title"] = "Player Details";
+}
+
+<h1 class="content-header">Player Details</h1>
+
+<div class="detail-block">
+    <h3>Core</h3>
+    <p>Name: @Model.CharacterName</p>
+    <p>Class: @Model.ClassType</p>
+    <p>Level: @Model.Level</p>
+    <p>Guild: @(Model.Guild?.Name ?? "No guild")</p>
+    <p>Last Updated: @Model.LastUpdatedAt.ToString("yyyy-MM-dd HH:mm") UTC</p>
+</div>
+
+<div class="detail-block">
+    <h3>Talent Builds</h3>
+    @if (Model.TalentBuilds.Any())
+    {
+        <ul>
+            @foreach (var build in Model.TalentBuilds)
+            {
+                <li>@build.BuildName (@build.TalentCode)</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p class="empty-state">No talent builds linked.</p>
+    }
+</div>
+
+<div class="detail-block">
+    <h3>Professions</h3>
+    @if (Model.Professions.Any())
+    {
+        <ul>
+            @foreach (var prof in Model.Professions)
+            {
+                <li>@(prof.Profession?.Name ?? "Unknown") (Skill @prof.SkillLevel)</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p class="empty-state">No professions linked.</p>
+    }
+</div>
+
+<a class="btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+<a class="btn-ghost" asp-action="Index">Back</a>

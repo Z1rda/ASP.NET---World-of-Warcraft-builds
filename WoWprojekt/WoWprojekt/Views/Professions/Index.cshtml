@@ -1,0 +1,75 @@
+@model WoWprojekt.Models.ViewModels.ProfessionIndexViewModel
+@{
+    ViewData["Title"] = "Professions";
+}
+
+<div class="crud-header">
+    <h1 class="content-header">Profession Ledger</h1>
+    <a class="btn-primary" asp-action="Create">Add</a>
+</div>
+
+<div class="crud-toolbar">
+    <label class="search-label" for="profession-search">Search professions</label>
+    <div class="crud-search">
+        <div class="autocomplete-search">
+            <input id="profession-search"
+                   class="search-input autocomplete-input"
+                   type="search"
+                   placeholder="Search profession names"
+                   value="@Model.SearchQuery"
+                   data-suggest-url="@Url.Action("Suggest")"
+                   data-preview-count="4"
+                   autocomplete="off"
+                   spellcheck="false"
+                   aria-expanded="false" />
+            <div class="autocomplete-panel" role="listbox" aria-hidden="true">
+                <div class="autocomplete-status is-hidden" data-autocomplete-status></div>
+                <ul class="autocomplete-results" data-autocomplete-results></ul>
+                <button class="autocomplete-more is-hidden" type="button" data-autocomplete-more>Show more</button>
+            </div>
+        </div>
+        <button id="profession-search-btn" class="search-button" type="button">Search</button>
+    </div>
+</div>
+
+<div id="profession-list" class="crud-list-container">
+    @await Html.PartialAsync("_ProfessionList", Model)
+</div>
+
+@section Scripts {
+    <script>
+        (() => {
+            const input = document.getElementById("profession-search");
+            const button = document.getElementById("profession-search-btn");
+            const list = document.getElementById("profession-list");
+            const endpoint = "@Url.Action("Search")";
+
+            if (!input || !button || !list || !endpoint) {
+                return;
+            }
+
+            const runSearch = () => {
+                const query = encodeURIComponent(input.value || "");
+                list.classList.add("is-loading");
+
+                fetch(`${endpoint}?q=${query}`, { headers: { "X-Requested-With": "XMLHttpRequest" } })
+                    .then((response) => response.text())
+                    .then((html) => {
+                        list.innerHTML = html;
+                    })
+                    .catch(() => {})
+                    .finally(() => {
+                        list.classList.remove("is-loading");
+                    });
+            };
+
+            button.addEventListener("click", runSearch);
+            input.addEventListener("keydown", (event) => {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    runSearch();
+                }
+            });
+        })();
+    </script>
+}
