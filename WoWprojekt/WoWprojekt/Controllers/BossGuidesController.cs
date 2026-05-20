@@ -83,8 +83,17 @@ public class BossGuidesController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(BossGuide boss)
     {
+        boss.BossName = (boss.BossName ?? string.Empty).Trim();
+
         if (!ModelState.IsValid)
         {
+            await PopulateRaidSelectionAsync(boss.RaidGuideId);
+            return View(boss);
+        }
+
+        if (await IsDuplicateNameAsync(boss.BossName))
+        {
+            ModelState.AddModelError(nameof(BossGuide.BossName), "Name already exists");
             await PopulateRaidSelectionAsync(boss.RaidGuideId);
             return View(boss);
         }
@@ -117,8 +126,17 @@ public class BossGuidesController : Controller
             return NotFound();
         }
 
+        boss.BossName = (boss.BossName ?? string.Empty).Trim();
+
         if (!ModelState.IsValid)
         {
+            await PopulateRaidSelectionAsync(boss.RaidGuideId);
+            return View(boss);
+        }
+
+        if (await IsDuplicateNameAsync(boss.BossName, boss.Id))
+        {
+            ModelState.AddModelError(nameof(BossGuide.BossName), "Name already exists");
             await PopulateRaidSelectionAsync(boss.RaidGuideId);
             return View(boss);
         }
@@ -131,12 +149,26 @@ public class BossGuidesController : Controller
 
         existing.BossName = boss.BossName;
         existing.Tactics = boss.Tactics;
-        existing.DifficultyRating = boss.DifficultyRating;
         existing.BossImageUrl = boss.BossImageUrl;
+        existing.DifficultyRating = boss.DifficultyRating;
         existing.RaidGuideId = boss.RaidGuideId;
 
         await _db.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
+    }
+
+    private async Task<bool> IsDuplicateNameAsync(string bossName, int? currentId = null)
+    {
+        var normalized = bossName.Trim().ToLowerInvariant();
+        if (string.IsNullOrWhiteSpace(normalized))
+        {
+            return false;
+        }
+
+        return await _db.BossGuides
+            .AsNoTracking()
+            .AnyAsync(b =>
+                b.BossName.ToLower() == normalized && (!currentId.HasValue || b.Id != currentId.Value));
     }
 
     [HttpGet]

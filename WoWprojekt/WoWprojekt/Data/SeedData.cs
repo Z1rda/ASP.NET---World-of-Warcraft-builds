@@ -660,4 +660,5 @@ public static class SeedData
         var encodedName = Uri.EscapeDataString(bossName);
         return $"https://placehold.co/96x96/1c1f24/e6dec6?text={encodedName}";
     }
+
 }

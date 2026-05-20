@@ -90,8 +90,17 @@ public class TalentBuildsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(TalentBuild build)
     {
+        build.BuildName = (build.BuildName ?? string.Empty).Trim();
+
         if (!ModelState.IsValid)
         {
+            await PopulatePlayerSelectionAsync(build.PlayerProfileId);
+            return View(build);
+        }
+
+        if (await IsDuplicateNameAsync(build.BuildName))
+        {
+            ModelState.AddModelError(nameof(TalentBuild.BuildName), "Name already exists");
             await PopulatePlayerSelectionAsync(build.PlayerProfileId);
             return View(build);
         }
@@ -125,8 +134,17 @@ public class TalentBuildsController : Controller
             return NotFound();
         }
 
+        build.BuildName = (build.BuildName ?? string.Empty).Trim();
+
         if (!ModelState.IsValid)
         {
+            await PopulatePlayerSelectionAsync(build.PlayerProfileId);
+            return View(build);
+        }
+
+        if (await IsDuplicateNameAsync(build.BuildName, build.Id))
+        {
+            ModelState.AddModelError(nameof(TalentBuild.BuildName), "Name already exists");
             await PopulatePlayerSelectionAsync(build.PlayerProfileId);
             return View(build);
         }
@@ -144,6 +162,20 @@ public class TalentBuildsController : Controller
 
         await _db.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
+    }
+
+    private async Task<bool> IsDuplicateNameAsync(string name, int? currentId = null)
+    {
+        var normalized = name.Trim().ToLowerInvariant();
+        if (string.IsNullOrWhiteSpace(normalized))
+        {
+            return false;
+        }
+
+        return await _db.TalentBuilds
+            .AsNoTracking()
+            .AnyAsync(t =>
+                t.BuildName.ToLower() == normalized && (!currentId.HasValue || t.Id != currentId.Value));
     }
 
     [HttpGet]

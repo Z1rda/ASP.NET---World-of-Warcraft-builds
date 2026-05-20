@@ -109,8 +109,17 @@ public class PlayerProfilesController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(PlayerProfile player)
     {
+        player.CharacterName = (player.CharacterName ?? string.Empty).Trim();
+
         if (!ModelState.IsValid)
         {
+            await PopulateCreateEditSelectionsAsync(player.GuildId);
+            return View(player);
+        }
+
+        if (await IsDuplicateNameAsync(player.CharacterName))
+        {
+            ModelState.AddModelError(nameof(PlayerProfile.CharacterName), "Name already exists");
             await PopulateCreateEditSelectionsAsync(player.GuildId);
             return View(player);
         }
@@ -144,8 +153,17 @@ public class PlayerProfilesController : Controller
             return NotFound();
         }
 
+        player.CharacterName = (player.CharacterName ?? string.Empty).Trim();
+
         if (!ModelState.IsValid)
         {
+            await PopulateCreateEditSelectionsAsync(player.GuildId);
+            return View(player);
+        }
+
+        if (await IsDuplicateNameAsync(player.CharacterName, player.Id))
+        {
+            ModelState.AddModelError(nameof(PlayerProfile.CharacterName), "Name already exists");
             await PopulateCreateEditSelectionsAsync(player.GuildId);
             return View(player);
         }
@@ -233,5 +251,19 @@ public class PlayerProfilesController : Controller
 
         ViewData["GuildId"] = new SelectList(guilds, "Id", "Name", selectedGuildId);
         ViewData["ClassTypes"] = new SelectList(Enum.GetValues<ClassType>());
+    }
+
+    private Task<bool> IsDuplicateNameAsync(string name, int? excludeId = null)
+    {
+        var normalized = name.Trim().ToLowerInvariant();
+        var query = _db.PlayerProfiles
+            .AsNoTracking()
+            .Where(p => p.CharacterName.ToLower() == normalized);
+        if (excludeId.HasValue)
+        {
+            query = query.Where(p => p.Id != excludeId.Value);
+        }
+
+        return query.AnyAsync();
     }
 }

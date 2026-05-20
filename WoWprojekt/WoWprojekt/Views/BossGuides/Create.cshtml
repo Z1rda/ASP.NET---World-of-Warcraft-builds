@@ -15,6 +15,12 @@
     </div>
 
     <div class="detail-block">
+        <label asp-for="BossImageUrl"></label>
+        <input asp-for="BossImageUrl" class="search-input" />
+        <span asp-validation-for="BossImageUrl"></span>
+    </div>
+
+    <div class="detail-block">
         @{
             var raidOptions = ViewData["RaidGuideId"] as Microsoft.AspNetCore.Mvc.Rendering.SelectList;
             var selectedRaidName = raidOptions?.FirstOrDefault(option => option.Value == Model.RaidGuideId.ToString())?.Text;
@@ -36,12 +42,6 @@
         <label asp-for="DifficultyRating"></label>
         <input asp-for="DifficultyRating" class="search-input" />
         <span asp-validation-for="DifficultyRating"></span>
-    </div>
-
-    <div class="detail-block">
-        <label asp-for="BossImageUrl"></label>
-        <input asp-for="BossImageUrl" class="search-input" />
-        <span asp-validation-for="BossImageUrl"></span>
     </div>
 
     <div class="detail-block">

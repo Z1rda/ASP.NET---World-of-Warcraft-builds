@@ -101,8 +101,16 @@ public class RaidGuidesController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(RaidGuide raid)
     {
+        raid.RaidName = (raid.RaidName ?? string.Empty).Trim();
+
         if (!ModelState.IsValid)
         {
+            return View(raid);
+        }
+
+        if (await IsDuplicateNameAsync(raid.RaidName))
+        {
+            ModelState.AddModelError(nameof(RaidGuide.RaidName), "Name already exists");
             return View(raid);
         }
 
@@ -134,8 +142,16 @@ public class RaidGuidesController : Controller
             return NotFound();
         }
 
+        raid.RaidName = (raid.RaidName ?? string.Empty).Trim();
+
         if (!ModelState.IsValid)
         {
+            return View(raid);
+        }
+
+        if (await IsDuplicateNameAsync(raid.RaidName, raid.Id))
+        {
+            ModelState.AddModelError(nameof(RaidGuide.RaidName), "Name already exists");
             return View(raid);
         }
 
@@ -151,6 +167,20 @@ public class RaidGuidesController : Controller
 
         await _db.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
+    }
+
+    private async Task<bool> IsDuplicateNameAsync(string raidName, int? currentId = null)
+    {
+        var normalized = raidName.Trim().ToLowerInvariant();
+        if (string.IsNullOrWhiteSpace(normalized))
+        {
+            return false;
+        }
+
+        return await _db.RaidGuides
+            .AsNoTracking()
+            .AnyAsync(r =>
+                r.RaidName.ToLower() == normalized && (!currentId.HasValue || r.Id != currentId.Value));
     }
 
     [HttpGet]

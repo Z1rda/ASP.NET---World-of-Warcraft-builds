@@ -102,8 +102,16 @@ public class ProfessionsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(Profession profession)
     {
+        profession.Name = (profession.Name ?? string.Empty).Trim();
+
         if (!ModelState.IsValid)
         {
+            return View(profession);
+        }
+
+        if (await IsDuplicateNameAsync(profession.Name))
+        {
+            ModelState.AddModelError(nameof(Profession.Name), "Name already exists");
             return View(profession);
         }
 
@@ -134,8 +142,16 @@ public class ProfessionsController : Controller
             return NotFound();
         }
 
+        profession.Name = (profession.Name ?? string.Empty).Trim();
+
         if (!ModelState.IsValid)
         {
+            return View(profession);
+        }
+
+        if (await IsDuplicateNameAsync(profession.Name, profession.Id))
+        {
+            ModelState.AddModelError(nameof(Profession.Name), "Name already exists");
             return View(profession);
         }
 
@@ -150,6 +166,20 @@ public class ProfessionsController : Controller
 
         await _db.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
+    }
+
+    private async Task<bool> IsDuplicateNameAsync(string name, int? currentId = null)
+    {
+        var normalized = name.Trim().ToLowerInvariant();
+        if (string.IsNullOrWhiteSpace(normalized))
+        {
+            return false;
+        }
+
+        return await _db.Professions
+            .AsNoTracking()
+            .AnyAsync(p =>
+                p.Name.ToLower() == normalized && (!currentId.HasValue || p.Id != currentId.Value));
     }
 
     [HttpGet]

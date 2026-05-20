@@ -14,12 +14,13 @@ public class BossGuide
     [StringLength(2000)]
     public string Tactics { get; set; } = string.Empty;
 
-    [Range(1, 10)]
-    public int DifficultyRating { get; set; }
-
+    [Required]
     [StringLength(500)]
     [Url]
     public string BossImageUrl { get; set; } = string.Empty;
+
+    [Range(1, 10)]
+    public int DifficultyRating { get; set; }
 
     [Required]
     public int RaidGuideId { get; set; }

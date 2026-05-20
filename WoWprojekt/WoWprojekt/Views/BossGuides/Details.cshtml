@@ -12,6 +12,13 @@
     <p>Difficulty: @Model.DifficultyRating/10</p>
 </div>
 
+@if (!string.IsNullOrWhiteSpace(Model.BossImageUrl))
+{
+    <div class="detail-block boss-detail-media">
+        <img class="boss-detail-image" src="@Model.BossImageUrl" alt="@Model.BossName" />
+    </div>
+}
+
 <div class="detail-block">
     <h3>Tactics</h3>
     <p>@Model.Tactics</p>

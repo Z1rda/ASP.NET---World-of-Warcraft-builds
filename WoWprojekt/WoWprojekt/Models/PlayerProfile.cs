@@ -7,7 +7,7 @@ public class PlayerProfile
 {
     public int Id { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "Name is required")]
     [StringLength(30)]
     public string CharacterName { get; set; } = string.Empty;
 

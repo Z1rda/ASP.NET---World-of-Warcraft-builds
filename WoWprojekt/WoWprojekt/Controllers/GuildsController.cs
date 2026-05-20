@@ -84,8 +84,17 @@ public class GuildsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(Guild guild)
     {
+        guild.Name = (guild.Name ?? string.Empty).Trim();
+        guild.Realm = (guild.Realm ?? string.Empty).Trim();
+
         if (!ModelState.IsValid)
         {
+            return View(guild);
+        }
+
+        if (await IsDuplicateNameAsync(guild.Name))
+        {
+            ModelState.AddModelError(nameof(Guild.Name), "Name already exists");
             return View(guild);
         }
 
@@ -117,8 +126,17 @@ public class GuildsController : Controller
             return NotFound();
         }
 
+        guild.Name = (guild.Name ?? string.Empty).Trim();
+        guild.Realm = (guild.Realm ?? string.Empty).Trim();
+
         if (!ModelState.IsValid)
         {
+            return View(guild);
+        }
+
+        if (await IsDuplicateNameAsync(guild.Name, guild.Id))
+        {
+            ModelState.AddModelError(nameof(Guild.Name), "Name already exists");
             return View(guild);
         }
 
@@ -133,6 +151,20 @@ public class GuildsController : Controller
 
         await _db.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
+    }
+
+    private async Task<bool> IsDuplicateNameAsync(string name, int? currentId = null)
+    {
+        var normalized = name.Trim().ToLowerInvariant();
+        if (string.IsNullOrWhiteSpace(normalized))
+        {
+            return false;
+        }
+
+        return await _db.Guilds
+            .AsNoTracking()
+            .AnyAsync(g =>
+                g.Name.ToLower() == normalized && (!currentId.HasValue || g.Id != currentId.Value));
     }
 
     [HttpGet]

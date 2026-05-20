@@ -5,6 +5,20 @@
 	const AUTOCOMPLETE_SELECTOR = "[data-autocomplete-url][data-autocomplete-name]";
 	const SUGGEST_SELECTOR = "input[data-suggest-url]";
 
+	const configureValidation = () => {
+		const validator = window.jQuery?.validator;
+		if (!validator) {
+			return;
+		}
+
+		validator.setDefaults({
+			onfocusout(element) {
+				this.element(element);
+			},
+			onkeyup: false
+		});
+	};
+
 	const initAutocomplete = (container) => {
 		if (container.dataset.autocompleteReady === "true") {
 			return;
@@ -563,6 +577,7 @@
 	};
 
 	const initAll = (root) => {
+		configureValidation();
 		const containers = root.querySelectorAll(AUTOCOMPLETE_SELECTOR);
 		containers.forEach((container) => initAutocomplete(container));
 
