@@ -24,5 +24,41 @@
     <p>@Model.Tactics</p>
 </div>
 
+<div class="detail-block raid-animator" data-raid-animator data-boss="@Model.BossName">
+    <div class="raid-animator-header">
+        <div>
+            <h3>Raid Positioning</h3>
+            <p class="raid-animator-note">Select a phase to preview repositioning.</p>
+        </div>
+        <div class="raid-phase-controls" role="group" aria-label="Raid phase">
+            <button class="phase-button is-active" type="button" data-phase="phase1">Phase I</button>
+            <button class="phase-button" type="button" data-phase="phase2">Phase II</button>
+            <button class="phase-button" type="button" data-phase="phase3">Phase III</button>
+        </div>
+    </div>
+    <div class="raid-arena" data-raid-arena>
+        <div class="raid-frost-overlay" aria-hidden="true"></div>
+        <div class="raid-marker role-tank" data-role="tank" data-index="0"><span>T</span></div>
+        <div class="raid-marker role-tank" data-role="tank" data-index="1"><span>T</span></div>
+
+        <div class="raid-marker role-healer" data-role="healer" data-index="0"><span>H</span></div>
+        <div class="raid-marker role-healer" data-role="healer" data-index="1"><span>H</span></div>
+        <div class="raid-marker role-healer" data-role="healer" data-index="2"><span>H</span></div>
+        <div class="raid-marker role-healer" data-role="healer" data-index="3"><span>H</span></div>
+
+        <div class="raid-marker role-dps" data-role="dps" data-index="0"><span>D</span></div>
+        <div class="raid-marker role-dps" data-role="dps" data-index="1"><span>D</span></div>
+        <div class="raid-marker role-dps" data-role="dps" data-index="2"><span>D</span></div>
+        <div class="raid-marker role-dps" data-role="dps" data-index="3"><span>D</span></div>
+        <div class="raid-marker role-dps" data-role="dps" data-index="4"><span>D</span></div>
+        <div class="raid-marker role-dps" data-role="dps" data-index="5"><span>D</span></div>
+    </div>
+    <div class="raid-legend" aria-hidden="true">
+        <span class="legend-item role-tank">Tank</span>
+        <span class="legend-item role-healer">Healer</span>
+        <span class="legend-item role-dps">DPS</span>
+    </div>
+</div>
+
 <a class="btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
 <a class="btn-ghost" asp-action="Index">Back</a>

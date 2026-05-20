@@ -44,6 +44,14 @@
         <span asp-validation-for="Description"></span>
     </div>
 
+    <partial name="_DateTimeControl" view-data="@(new ViewDataDictionary(ViewData)
+    {
+        { "Name", nameof(Model.PublishedAt) },
+        { "Label", "Published At" },
+        { "Value", Model.PublishedAt },
+        { "InputId", "PublishedAt_picker" }
+    })" />
+
     <button class="btn-primary" type="submit">Save</button>
     <a class="btn-ghost" asp-action="Index">Back</a>
 </form>

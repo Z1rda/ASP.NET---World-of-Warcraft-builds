@@ -1,0 +1,47 @@
+@using System.Globalization
+@{
+    var name = (ViewData["Name"] as string) ?? string.Empty;
+    var label = (ViewData["Label"] as string) ?? name;
+    var inputId = ((ViewData["InputId"] as string) ?? $"dt_{name.Replace('.', '_').Replace('[', '_').Replace(']', '_')}");
+
+    DateTime? parsedValue = null;
+    if (ViewData["Value"] is DateTime dt)
+    {
+        parsedValue = dt;
+    }
+    else if (DateTime.TryParse(Convert.ToString(ViewData["Value"], CultureInfo.InvariantCulture), out var parsed))
+    {
+        parsedValue = parsed;
+    }
+
+    var hiddenValue = parsedValue.HasValue
+        ? parsedValue.Value.ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture)
+        : string.Empty;
+}
+
+<div class="detail-block datetime-control" data-datetime-control>
+    <label for="@(inputId)_display">@label</label>
+    <input type="hidden" id="@inputId" name="@name" value="@hiddenValue" data-datetime-hidden />
+
+    <div class="datetime-inline">
+        <input type="text" id="@(inputId)_display" class="search-input datetime-display" data-datetime-display autocomplete="off" />
+        <button type="button" class="btn-ghost datetime-toggle" data-datetime-toggle>Pick</button>
+    </div>
+
+    <div class="datetime-popover is-hidden" data-datetime-popover>
+        <div class="datetime-grid">
+            <select data-datetime-year aria-label="Year"></select>
+            <select data-datetime-month aria-label="Month"></select>
+            <select data-datetime-day aria-label="Day"></select>
+            <select data-datetime-hour aria-label="Hour"></select>
+            <select data-datetime-minute aria-label="Minute"></select>
+        </div>
+        <div class="datetime-actions">
+            <button type="button" class="btn-ghost" data-datetime-now>Now</button>
+            <button type="button" class="btn-ghost" data-datetime-clear>Clear</button>
+            <button type="button" class="btn-primary" data-datetime-apply>Apply</button>
+        </div>
+    </div>
+
+    <span class="field-validation-valid" data-valmsg-for="@name" data-valmsg-replace="true"></span>
+</div>

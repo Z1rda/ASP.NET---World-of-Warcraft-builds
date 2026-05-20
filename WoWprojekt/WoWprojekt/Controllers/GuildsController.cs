@@ -98,7 +98,6 @@ public class GuildsController : Controller
             return View(guild);
         }
 
-        guild.CreatedAt = DateTime.UtcNow;
         _db.Guilds.Add(guild);
         await _db.SaveChangesAsync();
 
@@ -148,6 +147,7 @@ public class GuildsController : Controller
 
         existing.Name = guild.Name;
         existing.Realm = guild.Realm;
+        existing.CreatedAt = guild.CreatedAt;
 
         await _db.SaveChangesAsync();
         return RedirectToAction(nameof(Index));

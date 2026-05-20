@@ -34,6 +34,14 @@
         </select>
     </div>
 
+    <partial name="_DateTimeControl" view-data="@(new ViewDataDictionary(ViewData)
+    {
+        { "Name", nameof(Model.LastUpdatedAt) },
+        { "Label", "Last Updated At" },
+        { "Value", Model.LastUpdatedAt },
+        { "InputId", "LastUpdatedAt_picker" }
+    })" />
+
     <button class="btn-primary" type="submit">Save</button>
     <a class="btn-ghost" asp-action="Index">Back</a>
 </form>

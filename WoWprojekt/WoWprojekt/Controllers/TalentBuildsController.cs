@@ -105,7 +105,6 @@ public class TalentBuildsController : Controller
             return View(build);
         }
 
-        build.PublishedAt = DateTime.UtcNow;
         _db.TalentBuilds.Add(build);
         await _db.SaveChangesAsync();
 
@@ -159,6 +158,7 @@ public class TalentBuildsController : Controller
         existing.TalentCode = build.TalentCode;
         existing.Description = build.Description;
         existing.PlayerProfileId = build.PlayerProfileId;
+        existing.PublishedAt = build.PublishedAt;
 
         await _db.SaveChangesAsync();
         return RedirectToAction(nameof(Index));

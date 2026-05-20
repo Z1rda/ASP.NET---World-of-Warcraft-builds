@@ -330,6 +330,53 @@ a {
   color: var(--text-main);
 }
 
+.datetime-control {
+  position: relative;
+}
+
+.datetime-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.datetime-toggle {
+  white-space: nowrap;
+}
+
+.datetime-popover {
+  margin-top: 0.5rem;
+  padding: 0.6rem;
+  border: 1px solid var(--line-iron);
+  border-radius: 6px;
+  background: linear-gradient(180deg, rgba(31, 34, 40, 0.95), rgba(20, 23, 28, 0.98));
+}
+
+.datetime-popover.is-hidden {
+  display: none;
+}
+
+.datetime-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.45rem;
+  margin-bottom: 0.55rem;
+}
+
+.datetime-grid select {
+  width: 100%;
+  border: 1px solid var(--line-iron);
+  border-radius: 4px;
+  background: var(--bg-panel-soft);
+  color: var(--text-main);
+  padding: 0.4rem;
+}
+
+.datetime-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
 @media (max-width: 1100px) {
   .app-shell {
     grid-template-columns: 230px minmax(0, 1fr);
@@ -396,6 +443,278 @@ a {
 .autocomplete-search {
   position: relative;
   flex: 1;
+}
+
+/* Raid positioning animator */
+.raid-animator {
+  border: 1px solid rgba(138, 116, 72, 0.35);
+  border-radius: 10px;
+  padding: 1rem;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(143, 180, 191, 0.08), transparent 45%),
+    linear-gradient(160deg, rgba(30, 32, 38, 0.9), rgba(18, 20, 24, 0.95));
+  box-shadow: inset 0 0 0 1px rgba(196, 166, 107, 0.12);
+}
+
+.raid-animator-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.85rem;
+}
+
+.raid-animator-note {
+  margin: 0.3rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+.raid-phase-controls {
+  display: inline-flex;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.phase-button {
+  border: 1px solid var(--line-iron);
+  background: rgba(24, 26, 31, 0.85);
+  color: var(--text-main);
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 180ms ease, background-color 180ms ease, transform 180ms ease;
+}
+
+.phase-button:hover,
+.phase-button:focus-visible {
+  border-color: var(--line-gold);
+  background-color: rgba(36, 39, 46, 0.95);
+  transform: translateY(-1px);
+}
+
+.phase-button.is-active {
+  border-color: var(--accent-rune);
+  background: linear-gradient(145deg, rgba(52, 45, 28, 0.8), rgba(26, 28, 33, 0.85));
+  box-shadow: inset 0 0 0 1px rgba(196, 166, 107, 0.35);
+}
+
+/* ── Raid arena ─────────────────────────────────────────────────────────────
+   aspect-ratio: 1/1 makes it a true square so the dashed inner circle
+   renders as a circle (not an ellipse).
+   We cap the width so it doesn't grow too large on wide screens.        */
+.raid-arena {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  border-radius: 14px;
+  border: 1px solid rgba(59, 63, 70, 0.8);
+  background:
+    radial-gradient(circle at 50% 45%, rgba(28, 30, 36, 0.85), rgba(12, 13, 15, 0.95) 62%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.02),
+      rgba(255, 255, 255, 0.02) 10px,
+      transparent 10px,
+      transparent 22px
+    );
+  box-shadow: inset 0 0 0 1px rgba(138, 116, 72, 0.2), inset 0 0 22px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+
+.raid-arena::before {
+  content: "";
+  position: absolute;
+  inset: 12% 12% 12% 12%;
+  border-radius: 50%;
+  border: 1px dashed rgba(196, 166, 107, 0.25);
+  box-shadow: 0 0 0 1px rgba(143, 180, 191, 0.12);
+}
+
+.raid-arena::after {
+  content: "";
+  position: absolute;
+  inset: 6%;
+  border-radius: 10px;
+  border: 1px solid rgba(138, 116, 72, 0.2);
+}
+
+.raid-arena.is-frozen {
+  box-shadow: inset 0 0 30px rgba(122, 168, 190, 0.28), inset 0 0 0 1px rgba(143, 180, 191, 0.35);
+}
+
+.raid-arena.is-frozen::after {
+  background: radial-gradient(circle at 30% 20%, rgba(173, 210, 224, 0.12), transparent 55%);
+}
+
+.raid-arena.is-frozen .raid-frost-overlay {
+  opacity: 1;
+}
+
+/* Burrow effect for Anub'arak: pulsing edges and subtle tremor */
+.raid-arena.is-burrow {
+  animation: burrow-pulse 2.6s ease-in-out infinite;
+  box-shadow: inset 0 0 30px rgba(120, 100, 70, 0.12), 0 8px 20px rgba(0,0,0,0.45);
+}
+
+@keyframes burrow-pulse {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-1%); }
+  100% { transform: translateY(0); }
+}
+
+/* Twilight effect for Halion: purple tint and marker glow */
+.raid-arena.is-twilight {
+  box-shadow: inset 0 0 40px rgba(110, 72, 140, 0.16), inset 0 0 0 1px rgba(150, 110, 200, 0.12);
+  background-image: linear-gradient(180deg, rgba(30, 22, 36, 0.85), rgba(18, 14, 24, 0.95));
+}
+
+.raid-arena.is-twilight .raid-marker {
+  box-shadow: 0 0 12px rgba(140, 92, 180, 0.45);
+}
+
+.raid-arena.is-twilight .role-dps {
+  filter: hue-rotate(20deg) saturate(1.1);
+}
+
+/* Telegraph overlay layer */
+.raid-telegraphs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* AoE ring – static by default; JS overrides with animation:none for long-duration rings */
+.aoe-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(220, 120, 80, 0.9);
+  box-shadow: 0 0 18px rgba(220, 120, 80, 0.22);
+  animation: aoe-pulse 900ms ease-out forwards;
+  mix-blend-mode: screen;
+}
+
+@keyframes aoe-pulse {
+  from { transform: translate(-50%, -50%) scale(0.4); opacity: 1; }
+  to   { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+}
+
+/* Line telegraph: radial line from center */
+.line-telegraph {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 2px;
+  height: 120%;
+  background: linear-gradient(180deg, rgba(200,200,200,0.0), rgba(240,220,200,0.9), rgba(200,200,200,0.0));
+  transform-origin: center top;
+  transform: rotate(var(--deg, 0deg)) translateY(-10%);
+  opacity: 0.95;
+  animation: line-shoot 1200ms ease-out forwards;
+}
+
+@keyframes line-shoot {
+  0% { transform: scaleY(0) rotate(var(--deg,0deg)) translateY(-10%); opacity: 0.9; }
+  100% { transform: scaleY(1) rotate(var(--deg,0deg)) translateY(-10%); opacity: 0; }
+}
+
+/* Add spawn marker */
+.add-marker {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: radial-gradient(circle at 30% 30%, rgba(255,220,150,0.95), rgba(220,80,80,0.9));
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255,160,100,0.32);
+  animation: add-pop 300ms ease-out forwards;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes add-pop { from { transform: translate(-50%,-50%) scale(0.4); opacity: 0; } to { transform: translate(-50%,-50%) scale(1); opacity: 1; } }
+
+/* Raid marker */
+.raid-marker {
+  position: absolute;
+  left: var(--x, 50%);
+  top: var(--y, 50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: #101115;
+  background: var(--marker-color, #c4a66b);
+  transform: translate(-50%, -50%);
+  transition: left 520ms ease, top 520ms ease, box-shadow 520ms ease;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
+  z-index: 5;
+}
+
+.raid-marker span {
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+}
+
+.role-tank {
+  --marker-color: #c98d3d;
+}
+
+.role-healer {
+  --marker-color: #7fb8a6;
+}
+
+.role-dps {
+  --marker-color: #b9675b;
+}
+
+.raid-legend {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.legend-item::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--marker-color, #c4a66b);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 760px) {
+  .raid-animator {
+    padding: 0.85rem;
+  }
+
+  .raid-arena {
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+  }
+
+  .raid-marker {
+    width: 24px;
+    height: 24px;
+    font-size: 0.7rem;
+  }
 }
 
 .autocomplete-search .search-input {
@@ -707,4 +1026,21 @@ textarea.input-validation-error {
   border-color: rgba(179, 90, 73, 0.7);
   box-shadow: 0 0 0 2px rgba(179, 90, 73, 0.2);
   background-color: rgba(29, 32, 37, 0.95);
+}
+
+.raid-frost-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(169, 214, 235, 0.2), transparent 45%),
+    radial-gradient(circle at 70% 70%, rgba(120, 171, 198, 0.18), transparent 55%);
+  opacity: 0;
+  pointer-events: none;
+  animation: frost-drift 6s ease-in-out infinite;
+}
+
+@keyframes frost-drift {
+  0%   { transform: translate3d(0, 0, 0); }
+  50%  { transform: translate3d(-2%, -1%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
 }

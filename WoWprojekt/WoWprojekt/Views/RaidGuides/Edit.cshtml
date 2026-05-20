@@ -21,6 +21,14 @@
         <span asp-validation-for="PreparationNotes"></span>
     </div>
 
+    <partial name="_DateTimeControl" view-data="@(new ViewDataDictionary(ViewData)
+    {
+        { "Name", nameof(Model.UpdatedAt) },
+        { "Label", "Updated At" },
+        { "Value", Model.UpdatedAt },
+        { "InputId", "UpdatedAt_picker" }
+    })" />
+
     <button class="btn-primary" type="submit">Save</button>
     <a class="btn-ghost" asp-action="Index">Back</a>
 </form>

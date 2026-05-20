@@ -114,7 +114,6 @@ public class RaidGuidesController : Controller
             return View(raid);
         }
 
-        raid.UpdatedAt = DateTime.UtcNow;
         _db.RaidGuides.Add(raid);
         await _db.SaveChangesAsync();
 
@@ -163,7 +162,7 @@ public class RaidGuidesController : Controller
 
         existing.RaidName = raid.RaidName;
         existing.PreparationNotes = raid.PreparationNotes;
-        existing.UpdatedAt = DateTime.UtcNow;
+        existing.UpdatedAt = raid.UpdatedAt;
 
         await _db.SaveChangesAsync();
         return RedirectToAction(nameof(Index));

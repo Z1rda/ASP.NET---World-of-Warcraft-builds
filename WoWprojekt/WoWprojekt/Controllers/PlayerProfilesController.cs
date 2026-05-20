@@ -124,7 +124,6 @@ public class PlayerProfilesController : Controller
             return View(player);
         }
 
-        player.LastUpdatedAt = DateTime.UtcNow;
         _db.PlayerProfiles.Add(player);
         await _db.SaveChangesAsync();
 
@@ -178,7 +177,7 @@ public class PlayerProfilesController : Controller
         existing.Level = player.Level;
         existing.ClassType = player.ClassType;
         existing.GuildId = player.GuildId;
-        existing.LastUpdatedAt = DateTime.UtcNow;
+        existing.LastUpdatedAt = player.LastUpdatedAt;
 
         await _db.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
