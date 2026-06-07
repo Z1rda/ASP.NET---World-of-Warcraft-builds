@@ -38,7 +38,7 @@
 
 @section Scripts {
     <script>
-        (() => {
+        (() => {   
             const input = document.getElementById("boss-search");
             const button = document.getElementById("boss-search-btn");
             const list = document.getElementById("boss-list");
@@ -69,6 +69,12 @@
                     event.preventDefault();
                     runSearch();
                 }
+            });
+
+            let debounceTimer = null;
+            input.addEventListener("input", () => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(runSearch, 220);
             });
         })();
     </script>

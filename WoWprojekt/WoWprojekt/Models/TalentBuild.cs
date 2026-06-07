@@ -23,4 +23,6 @@ public class TalentBuild
 
     [ForeignKey(nameof(PlayerProfileId))]
     public virtual PlayerProfile? PlayerProfile { get; set; }
+
+    public virtual ICollection<TalentBuildAttachment> Attachments { get; set; } = new List<TalentBuildAttachment>();
 }

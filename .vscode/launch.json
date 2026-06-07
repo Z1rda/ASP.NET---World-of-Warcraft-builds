@@ -2,24 +2,27 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "WoWprojekt (Debug)",
+      "name": "WoWprojekt (Run)",
       "type": "coreclr",
       "request": "launch",
-      "program": "dotnet",
-      "args": [
-        "run",
-        "--project",
-        "${workspaceFolder}/WoWprojekt/WoWprojekt/WoWprojekt.csproj"
-      ],
+      "program": "${workspaceFolder}/WoWprojekt/WoWprojekt/bin/Debug/net10.0/WoWprojekt.dll",
+      "args": [],
       "cwd": "${workspaceFolder}/WoWprojekt/WoWprojekt",
-      "env": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "ASPNETCORE_URLS": "http://localhost:5220;https://localhost:7092"
-      },
+      "preLaunchTask": "build-wowprojekt",
       "stopAtEntry": false,
+      "console": "integratedTerminal",
       "launchBrowser": {
         "enabled": true,
-        "args": "http://localhost:5220"
+        "args": "http://localhost:5220",
+        "windows": {
+          "command": "cmd.exe",
+          "args": "/C start http://localhost:5220"
+        }
+      },
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+        "uriFormat": "%s"
       }
     }
   ]

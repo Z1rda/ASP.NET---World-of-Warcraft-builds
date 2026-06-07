@@ -27,4 +27,5 @@ public class BossGuide
 
     [ForeignKey(nameof(RaidGuideId))]
     public virtual RaidGuide? RaidGuide { get; set; }
+    public virtual ICollection<BossGuideImage> Images { get; set; } = new List<BossGuideImage>();
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WoWprojekt.Data;
 
@@ -11,9 +12,11 @@ using WoWprojekt.Data;
 namespace WoWprojekt.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260607112222_AddIdentity")]
+    partial class AddIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -267,50 +270,6 @@ namespace WoWprojekt.Migrations
                     b.HasIndex("RaidGuideId");
 
                     b.ToTable("BossGuides");
-                });
-
-            modelBuilder.Entity("WoWprojekt.Models.BossGuideImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BossGuideId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ContentType")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<long>("FileSize")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("OriginalFileName")
-                        .IsRequired()
-                        .HasMaxLength(260)
-                        .HasColumnType("varchar(260)");
-
-                    b.Property<string>("StoredFileName")
-                        .IsRequired()
-                        .HasMaxLength(260)
-                        .HasColumnType("varchar(260)");
-
-                    b.Property<string>("StoredFilePath")
-                        .IsRequired()
-                        .HasMaxLength(400)
-                        .HasColumnType("varchar(400)");
-
-                    b.Property<DateTime>("UploadedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BossGuideId");
-
-                    b.ToTable("BossGuideImages");
                 });
 
             modelBuilder.Entity("WoWprojekt.Models.Guild", b =>
@@ -580,17 +539,6 @@ namespace WoWprojekt.Migrations
                     b.Navigation("RaidGuide");
                 });
 
-            modelBuilder.Entity("WoWprojekt.Models.BossGuideImage", b =>
-                {
-                    b.HasOne("WoWprojekt.Models.BossGuide", "BossGuide")
-                        .WithMany("Images")
-                        .HasForeignKey("BossGuideId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("BossGuide");
-                });
-
             modelBuilder.Entity("WoWprojekt.Models.PlayerProfession", b =>
                 {
                     b.HasOne("WoWprojekt.Models.PlayerProfile", "PlayerProfile")
@@ -640,11 +588,6 @@ namespace WoWprojekt.Migrations
                         .IsRequired();
 
                     b.Navigation("TalentBuild");
-                });
-
-            modelBuilder.Entity("WoWprojekt.Models.BossGuide", b =>
-                {
-                    b.Navigation("Images");
                 });
 
             modelBuilder.Entity("WoWprojekt.Models.Guild", b =>

@@ -5,7 +5,10 @@
 
 <div class="crud-header">
     <h1 class="content-header">Guild Register</h1>
-    <a class="btn-primary" asp-action="Create">Add</a>
+    @if (User.IsInRole("admin"))
+    {
+        <a class="btn-primary" asp-action="Create">Add</a>
+    }
 </div>
 
 <div class="crud-toolbar">
@@ -69,6 +72,12 @@
                     event.preventDefault();
                     runSearch();
                 }
+            });
+            
+            let debounceTimer = null;
+            input.addEventListener("input", () => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(runSearch, 220);
             });
         })();
     </script>

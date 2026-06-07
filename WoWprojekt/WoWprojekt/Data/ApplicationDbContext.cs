@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using WoWprojekt.Models;
 
 namespace WoWprojekt.Data;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
@@ -17,6 +18,8 @@ public class ApplicationDbContext : DbContext
     public DbSet<Profession> Professions => Set<Profession>();
     public DbSet<RaidGuide> RaidGuides => Set<RaidGuide>();
     public DbSet<TalentBuild> TalentBuilds => Set<TalentBuild>();
+    public DbSet<TalentBuildAttachment> TalentBuildAttachments => Set<TalentBuildAttachment>();
+    public DbSet<BossGuideImage> BossGuideImages => Set<BossGuideImage>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -47,6 +50,18 @@ public class ApplicationDbContext : DbContext
             .HasOne(t => t.PlayerProfile)
             .WithMany(p => p.TalentBuilds)
             .HasForeignKey(t => t.PlayerProfileId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<TalentBuildAttachment>()
+            .HasOne(a => a.TalentBuild)
+            .WithMany(t => t.Attachments)
+            .HasForeignKey(a => a.TalentBuildId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<BossGuideImage>()
+            .HasOne(i => i.BossGuide)
+            .WithMany(b => b.Images)
+            .HasForeignKey(i => i.BossGuideId)
             .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<PlayerProfile>()

@@ -19,6 +19,7 @@
 		});
 	};
 
+	//create/edit
 	const initAutocomplete = (container) => {
 		if (container.dataset.autocompleteReady === "true") {
 			return;
@@ -287,6 +288,7 @@
 		});
 	};
 
+	//pretraga/filter
 	const initListSuggest = (input) => {
 		if (input.dataset.suggestReady === "true") {
 			return;
@@ -635,9 +637,10 @@
 			display.value = date ? displayFormatter.format(date) : "";
 		};
 
-		const buildYearOptions = (centerYear) => {
+		const buildYearOptions = () => {
 			yearSelect.innerHTML = "";
-			for (let y = centerYear - 20; y <= centerYear + 20; y++) {
+			const currentYear = new Date().getFullYear();
+			for (let y = 2006; y <= currentYear; y++) {
 				const option = document.createElement("option");
 				option.value = String(y);
 				option.textContent = String(y);
@@ -749,6 +752,13 @@
 
 		applyBtn.addEventListener("click", () => {
 			const picked = getDateFromSelects();
+			const now = new Date();
+
+			if (picked > now) {
+				setStatus("Datum ne može biti u budućnosti.", "error");
+				return;
+			}
+
 			hidden.value = toIsoLocal(picked);
 			setDisplay(picked);
 			hidden.dispatchEvent(new Event("input", { bubbles: true }));
@@ -1252,6 +1262,81 @@
 					if (b.dataset.phase === "phase3") b.style.display = "none";
 				});
 			}
+			if (bossKey.includes("ladydeathwhisper")) {
+				buttons.forEach((b) => {
+					if (b.dataset.phase === "phase3") b.style.display = "none";
+				});
+			}
+			if (bossKey.includes("gunship")) {
+				buttons.forEach((b) => {
+					if (b.dataset.phase === "phase2") b.style.display = "none";
+				});
+			}
+			if (bossKey.includes("gunship")) {
+				buttons.forEach((b) => {
+					if (b.dataset.phase === "phase3") b.style.display = "none";
+				});
+			}
+			if (bossKey.includes("deathbringer")) {
+				buttons.forEach((b) => {
+					if (b.dataset.phase === "phase2") b.style.display = "none";
+				});
+			}
+			if (bossKey.includes("deathbringer")) {
+				buttons.forEach((b) => {
+					if (b.dataset.phase === "phase3") b.style.display = "none";
+				});
+			}
+			if (bossKey.includes("festergut")) {
+				buttons.forEach((b) => {
+					if (b.dataset.phase === "phase2") b.style.display = "none";
+				});
+			}
+			if (bossKey.includes("festergut")) {
+				buttons.forEach((b) => {
+					if (b.dataset.phase === "phase3") b.style.display = "none";
+				});
+			}
+			if (bossKey.includes("rotface")) {
+				buttons.forEach((b) => {
+					if (b.dataset.phase === "phase2") b.style.display = "none";
+				});
+			}
+			if (bossKey.includes("rotface")) {
+				buttons.forEach((b) => {
+					if (b.dataset.phase === "phase3") b.style.display = "none";
+				});
+			}
+			if (bossKey.includes("rotface")) {
+				buttons.forEach((b) => {
+					if (b.dataset.phase === "phase3") b.style.display = "none";
+				});
+			}
+			if (bossKey.includes("rotface")) {
+				buttons.forEach((b) => {
+					if (b.dataset.phase === "phase3") b.style.display = "none";
+				});
+			}
+			if (bossKey.includes("bloodqueen")) {
+				buttons.forEach((b) => {
+					if (b.dataset.phase === "phase3") b.style.display = "none";
+				});
+			}
+			if (bossKey.includes("bloodqueen")) {
+				buttons.forEach((b) => {
+					if (b.dataset.phase === "phase3") b.style.display = "none";
+				});
+			}
+			if (bossKey.includes("valithria")) {
+				buttons.forEach((b) => {
+					if (b.dataset.phase === "phase3") b.style.display = "none";
+				});
+			}
+			if (bossKey.includes("valithria")) {
+				buttons.forEach((b) => {
+					if (b.dataset.phase === "phase3") b.style.display = "none";
+				});
+			}
 
 			// clear all running timers
 			if (motionTimer) { clearInterval(motionTimer); motionTimer = null; }
@@ -1302,13 +1387,14 @@
 					// outward (but stay within the center cluster), then return.
 					const AOE_RADIUS = 8;   // % – roughly 2 player widths
 					const AOE_TTL    = 5000; // ms – how long the circle lasts
-					const NUDGE_DIST = 10;   // % – how far affected players step back
+					const NUDGE_DIST = 20;   // % – how far affected players step back
 
 					teleTimers.push(setInterval(() => {
 						// Collect all center markers (healers + dps, not tanks)
 						const centerMarkers = [
 							...container.querySelectorAll(".raid-marker[data-role='healer']"),
 							...container.querySelectorAll(".raid-marker[data-role='dps']")
+							
 						];
 						if (!centerMarkers.length) return;
 
@@ -1327,24 +1413,25 @@
 							const dx = mx - tx;
 							const dy = my - ty;
 							const dist = Math.sqrt(dx * dx + dy * dy);
+							const isTarget = dist < 0.5;
+							if (isTarget || dist < AOE_RADIUS + 6) {
+								const nx = isTarget 
+									? (Math.random() * 2 - 1)  // random smjer za target
+									: dx / dist;               // smjer od centra za ostale
+								const ny = isTarget 
+									? (Math.random() * 2 - 1) 
+									: dy / dist;
 
-							if (dist < AOE_RADIUS + 2) { // +2 so edge-players also move
-								// Direction away from circle center; use pure outward if exactly on center
-								const nx = dist > 0.1 ? dx / dist : (Math.random() - 0.5);
-								const ny = dist > 0.1 ? dy / dist : (Math.random() - 0.5);
+								// normaliziraj vektor za target
+								const len = Math.sqrt(nx * nx + ny * ny);
+								const nnx = nx / len;
+								const nny = ny / len;
 
-								// New position: nudge outward, clamped to stay roughly in center area
-								const newX = Math.min(70, Math.max(30, mx + nx * NUDGE_DIST));
-								const newY = Math.min(70, Math.max(30, my + ny * NUDGE_DIST));
+								const newX = Math.min(75, Math.max(25, mx + nnx * NUDGE_DIST));
+								const newY = Math.min(75, Math.max(25, my + nny * NUDGE_DIST));
 
 								m.style.setProperty("--x", `${newX}%`);
 								m.style.setProperty("--y", `${newY}%`);
-
-								// Return to original position when AoE expires
-								setTimeout(() => {
-									m.style.setProperty("--x", `${mx}%`);
-									m.style.setProperty("--y", `${my}%`);
-								}, AOE_TTL);
 							}
 						});
 					}, 15000));
@@ -1354,6 +1441,7 @@
 						spawnAdd(20 + Math.random() * 10, 40 + Math.random() * 20);
 						spawnAdd(70 + Math.random() * 10, 40 + Math.random() * 20);
 					}, 12000));
+					
 				}
 
 				if (phase === "phase2") {
@@ -1371,7 +1459,6 @@
 						m.style.setProperty("--y", `${p[1]}%`);
 					});
 
-					// 8 moving players (2 tanks + 6 dps) spread evenly around circle
 					const movingRoles = ["tank","tank","dps","dps","dps","dps","dps","dps"];
 					const movingMarkers = [
 						...container.querySelectorAll(".raid-marker[data-role='tank']"),
@@ -1379,9 +1466,11 @@
 					];
 
 					motionTimer = setInterval(() => {
-						angle += (2 * Math.PI) / (8 * 6); // full rotation in ~6 intervals
+						angle += (2 * Math.PI) / (movingMarkers.length * 6);
 						movingMarkers.forEach((m, i) => {
-							const a = angle + (i * 2 * Math.PI) / movingMarkers.length;
+							// mali offset po indexu umjesto ravnomjernog rasporeda
+							const clusterSpread = 0.07; // koliko su razmaknuti unutar klastera (radijani)
+							const a = angle + (i * clusterSpread);
 							const [x, y] = circlePos(cx, cy, rx, ry, a);
 							m.style.setProperty("--x", `${x}%`);
 							m.style.setProperty("--y", `${y}%`);

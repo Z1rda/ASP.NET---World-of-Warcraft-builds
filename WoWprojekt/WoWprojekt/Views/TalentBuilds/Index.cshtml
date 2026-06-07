@@ -70,6 +70,12 @@
                     runSearch();
                 }
             });
+
+            let debounceTimer = null;
+            input.addEventListener("input", () => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(runSearch, 220);
+            });
         })();
     </script>
 }
