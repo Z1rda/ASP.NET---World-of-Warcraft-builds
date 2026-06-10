@@ -35,11 +35,14 @@ builder.Services.AddAuthentication()
         options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]!;
     });
     
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+if (!builder.Environment.IsEnvironment("Testing"))
+{
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+        ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 0))));
+}
 
 builder.Services.AddRazorPages();
 
@@ -92,8 +95,15 @@ app.MapControllers();
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    context.Database.Migrate();
-    SeedData.Initialize(context);
+    if (context.Database.IsRelational())
+    {
+        context.Database.Migrate();
+        SeedData.Initialize(context);
+    }
+    else
+    {
+        context.Database.EnsureCreated();
+    }
 }
 
 using (var scope = app.Services.CreateScope())
@@ -172,3 +182,5 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.Run();
+
+public partial class Program { }

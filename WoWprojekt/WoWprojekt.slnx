@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="WoWprojekt/WoWprojekt.csproj" />
+  <Project Path="WoWprojekt.Tests/WoWprojekt.Tests.csproj" />
 </Solution>
