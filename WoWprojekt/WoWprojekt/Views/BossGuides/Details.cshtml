@@ -24,6 +24,11 @@
     <p>@Model.Tactics</p>
 </div>
 
+<div class="detail-block">
+    <h3>Images</h3>
+    <div id="bossImagesList" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;"></div>
+</div>
+
 <div class="detail-block raid-animator" data-raid-animator data-boss="@Model.BossName">
     <div class="raid-animator-header">
         <div>
@@ -65,3 +70,45 @@
     <a class="btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
 }
 <a class="btn-ghost" asp-action="Index">Back</a>
+
+@section Scripts {
+    <script>
+        const isAdmin = @(User.IsInRole("admin") ? "true" : "false");
+
+        document.addEventListener('DOMContentLoaded', async function () {
+            const list = document.getElementById('bossImagesList');
+            const resp = await fetch(`/api/bosses/@Model.Id/images`);
+            if (!resp.ok) return;
+            const items = await resp.json();
+            for (const img of items) {
+                const wrapper = document.createElement('div');
+                wrapper.style.width = '120px';
+                wrapper.style.textAlign = 'center';
+
+                const thumb = document.createElement('img');
+                thumb.src = img.fileUrl || img.FileUrl;
+                thumb.alt = img.originalFileName || img.OriginalFileName || '';
+                thumb.style.width = '100%';
+                thumb.style.height = 'auto';
+                wrapper.appendChild(thumb);
+
+                if (isAdmin) {
+                    const del = document.createElement('button');
+                    del.textContent = 'Delete';
+                    del.className = 'btn-ghost';
+                    del.style.display = 'block';
+                    del.style.marginTop = '6px';
+                    del.onclick = async () => {
+                        if (!confirm('Delete this image?')) return;
+                        const r = await fetch(`/api/bosses/@Model.Id/images/${img.id || img.Id}`, { method: 'DELETE' });
+                        if (r.ok) location.reload();
+                        else alert('Delete failed');
+                    };
+                    wrapper.appendChild(del);
+                }
+
+                list.appendChild(wrapper);
+            }
+        });
+    </script>
+}

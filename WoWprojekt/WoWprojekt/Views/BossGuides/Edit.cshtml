@@ -3,6 +3,8 @@
     ViewData["Title"] = "Edit Boss";
 }
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.css" />
+
 <h1 class="content-header">Edit Boss Guide</h1>
 
 <form asp-action="Edit" method="post">
@@ -57,38 +59,30 @@
 
 @if (User.IsInRole("admin"))
 {
-    <div style="margin-top:12px;">
-        <form id="simpleUploadForm" method="post" action="/api/bosses/@Model.Id/images" enctype="multipart/form-data">
-            @Html.AntiForgeryToken()
-            <label for="simpleUpload">Add image (JPG/PNG):</label>
-            <input type="file" id="simpleUpload" name="file" accept=".jpg,.jpeg,.png" />
-            <button type="submit" class="btn-primary">Upload</button>
-        </form>
-    </div>
-
-    <h2 class="content-header">Boss Images (Gallery)</h2>
-
-    <div id="boss-images-section">
-        <form id="bossDropzone" class="dropzone" enctype="multipart/form-data">
-            <div class="dz-message">Drop images here or click to upload (JPG, PNG)</div>
-        </form>
-
-        <div id="bossImagesList" style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;"></div>
+    <div style="margin-top:24px;">
+        @Html.AntiForgeryToken()
+        <label>Add image (JPG/PNG):</label>
+        <div id="bossDropzone" class="dropzone" style="margin-top:8px;"></div>
     </div>
 }
 
+<h2 class="content-header">Boss Images (Gallery)</h2>
+<div id="boss-images-section">
+    <div id="bossImagesList" style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;"></div>
+</div>
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js" integrity="sha512-8g7w3kqYyqJ3q3Hq2X9fD0k3a6x6Y1vQ3Vq2QY5sK1yP7bqv8nM1r1g1Z8T+6sE9GqTz1G9Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.css" integrity="sha512-+R0m3kGk0zQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
     <script>
         Dropzone.autoDiscover = false;
+
+        const isAdmin = @(User.IsInRole("admin") ? "true" : "false");
 
         async function refreshBossImages() {
             const list = document.getElementById('bossImagesList');
             list.innerHTML = '';
-            const resp = await fetch(`/api/bosses/${Model.Id}/images`);
+            const resp = await fetch(`/api/bosses/@Model.Id/images`);
             if (!resp.ok) return;
             const items = await resp.json();
             for (const img of items) {
@@ -97,14 +91,13 @@
                 wrapper.style.textAlign = 'center';
 
                 const thumb = document.createElement('img');
-                thumb.src = img.fileUrl || img.FileUrl || img.FileUrl;
+                thumb.src = img.fileUrl || img.FileUrl;
                 thumb.style.width = '100%';
                 thumb.style.height = 'auto';
                 thumb.alt = img.originalFileName || img.OriginalFileName;
-
                 wrapper.appendChild(thumb);
 
-                {
+                if (isAdmin) {
                     const del = document.createElement('button');
                     del.textContent = 'Delete';
                     del.className = 'btn-ghost';
@@ -112,7 +105,7 @@
                     del.style.marginTop = '6px';
                     del.onclick = async () => {
                         if (!confirm('Delete this image?')) return;
-                        const r = await fetch(`/api/bosses/${Model.Id}/images/${img.id || img.Id}`, { method: 'DELETE' });
+                        const r = await fetch(`/api/bosses/@Model.Id/images/${img.id || img.Id}`, { method: 'DELETE' });
                         if (r.ok) await refreshBossImages();
                         else alert('Delete failed');
                     };
@@ -124,65 +117,40 @@
         }
 
         document.addEventListener('DOMContentLoaded', function () {
-            if (!document.getElementById('bossDropzone')) return;
-
-            const tokenInput = document.querySelector('input[name="__RequestVerificationToken"]');
-            const token = tokenInput ? tokenInput.value : '';
-
-            const dz = new Dropzone('#bossDropzone', {
-                url: `/api/bosses/${Model.Id}/images`,
-                paramName: 'file',
-                maxFilesize: 5,
-                acceptedFiles: '.jpg,.jpeg,.png',
-                headers: {
-                    'RequestVerificationToken': token
-                }
-            });
-
-            dz.on('success', function () { refreshBossImages(); });
-            dz.on('error', function () { alert('Upload failed'); });
-
             refreshBossImages();
-        });
-        // Intercept simple fallback form submit and send via fetch to avoid navigation
-        (function () {
-            const form = document.getElementById('simpleUploadForm');
-            if (!form) return;
-            form.addEventListener('submit', async function (e) {
-                e.preventDefault();
-                const input = form.querySelector('input[type=file]');
-                if (!input || input.files.length === 0) {
-                    alert('Please select a file');
-                    return;
+
+            if (isAdmin) {
+                const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value ?? '';
+                let refreshTimeout = null;
+
+                function scheduleRefresh() {
+                    clearTimeout(refreshTimeout);
+                    refreshTimeout = setTimeout(refreshBossImages, 300);
                 }
 
-                const fd = new FormData();
-                fd.append('file', input.files[0]);
-
-                // include antiforgery token if present
-                const tokenInput = form.querySelector('input[name="__RequestVerificationToken"]');
-                const headers = {};
-                if (tokenInput) headers['RequestVerificationToken'] = tokenInput.value;
-
-                try {
-                    const resp = await fetch(form.action, {
-                        method: 'POST',
-                        body: fd,
-                        credentials: 'same-origin',
-                        headers
-                    });
-                    if (resp.ok) {
-                        await refreshBossImages();
-                        form.reset();
-                        alert('Upload successful');
-                    } else {
-                        const txt = await resp.text();
-                        alert('Upload failed: ' + (txt || resp.statusText));
+                new Dropzone('#bossDropzone', {
+                    url: `/api/bosses/@Model.Id/images`,
+                    method: 'post',
+                    paramName: 'file',
+                    acceptedFiles: '.jpg,.jpeg,.png',
+                    maxFilesize: 20,
+                    addRemoveLinks: false,
+                    createImageThumbnails: false,
+                    headers: {
+                        'RequestVerificationToken': token
+                    },
+                    init: function () {
+                        this.on('success', function (file) {
+                            this.removeFile(file);
+                            scheduleRefresh();
+                        });
+                        this.on('error', function (file, message) {
+                            alert('Upload failed: ' + (typeof message === 'string' ? message : message.title ?? JSON.stringify(message)));
+                            this.removeFile(file);
+                        });
                     }
-                } catch (err) {
-                    alert('Upload error: ' + err);
-                }
-            });
-        })();
+                });
+            }
+        });
     </script>
 }

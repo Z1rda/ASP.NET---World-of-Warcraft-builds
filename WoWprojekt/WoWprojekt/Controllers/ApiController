@@ -1,0 +1,96 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using WoWprojekt.Api;
+using WoWprojekt.Data;
+using WoWprojekt.Models;
+
+namespace WoWprojekt.Controllers.Api;
+
+[ApiController]
+[Route("api/bosses")]
+public class BossImagesApiController : ControllerBase
+{
+    private readonly ApplicationDbContext _db;
+    private readonly IWebHostEnvironment _env;
+
+    public BossImagesApiController(ApplicationDbContext db, IWebHostEnvironment env)
+    {
+        _db = db;
+        _env = env;
+    }
+
+    [HttpGet("{bossId}/images")]
+    public async Task<IActionResult> GetImages(int bossId)
+    {
+        var images = await _db.BossGuideImages
+            .AsNoTracking()
+            .Where(i => i.BossGuideId == bossId)
+            .OrderBy(i => i.UploadedAt)
+            .ToListAsync();
+
+        return Ok(images.Select(i => i.ToDto()));
+    }
+
+    [HttpPost("{bossId}/images")]
+    [Authorize(Roles = "admin")]
+    public async Task<IActionResult> UploadImage(int bossId, IFormFile file)
+    {
+        if (file is null || file.Length == 0)
+            return BadRequest("No file provided.");
+
+        var boss = await _db.BossGuides.FindAsync(bossId);
+        if (boss is null)
+            return NotFound();
+
+        var allowed = new[] { "image/jpeg", "image/png" };
+        if (!allowed.Contains(file.ContentType))
+            return BadRequest("Only JPG and PNG are allowed.");
+
+        var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads", "bosses");
+        Directory.CreateDirectory(uploadsFolder);
+
+        var storedFileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+        var fullPath = Path.Combine(uploadsFolder, storedFileName);
+
+        await using var stream = System.IO.File.Create(fullPath);
+        await file.CopyToAsync(stream);
+
+        var image = new BossGuideImage
+        {
+            BossGuideId = bossId,
+            OriginalFileName = file.FileName,
+            StoredFileName = storedFileName,
+            StoredFilePath = $"/uploads/bosses/{storedFileName}",
+            ContentType = file.ContentType,
+            FileSize = file.Length,
+            UploadedAt = DateTime.UtcNow
+        };
+
+        _db.BossGuideImages.Add(image);
+        await _db.SaveChangesAsync();
+
+        return Ok(image.ToDto());
+    }
+
+    [HttpDelete("{bossId}/images/{imageId}")]
+    [Authorize(Roles = "admin")]
+    [IgnoreAntiforgeryToken]
+    public async Task<IActionResult> DeleteImage(int bossId, int imageId)
+    {
+        var image = await _db.BossGuideImages
+            .FirstOrDefaultAsync(i => i.Id == imageId && i.BossGuideId == bossId);
+
+        if (image is null)
+            return NotFound();
+
+        var fullPath = Path.Combine(_env.WebRootPath, image.StoredFilePath.TrimStart('/'));
+        if (System.IO.File.Exists(fullPath))
+            System.IO.File.Delete(fullPath);
+
+        _db.BossGuideImages.Remove(image);
+        await _db.SaveChangesAsync();
+
+        return NoContent();
+    }
+}

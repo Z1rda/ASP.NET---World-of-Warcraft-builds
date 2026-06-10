@@ -7,12 +7,12 @@ using WoWprojekt.Models;
 namespace WoWprojekt.Controllers.Api;
 
 [ApiController]
-[Route("api/bossguides")]
-public class BossGuidesController : ControllerBase
+[Route("api/boss-guides")]
+public class BossGuidesApiController : ControllerBase
 {
     private readonly ApplicationDbContext _db;
 
-    public BossGuidesController(ApplicationDbContext db)
+    public BossGuidesApiController(ApplicationDbContext db)
     {
         _db = db;
     }
