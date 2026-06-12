@@ -5,7 +5,10 @@
 
 <div class="crud-header">
     <h1 class="content-header">Talent Compendium</h1>
+    @if (User.IsInRole("admin"))
+    {
     <a class="btn-primary" asp-action="Create">Add</a>
+    }
 </div>
 
 <div class="crud-toolbar">

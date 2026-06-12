@@ -17,11 +17,14 @@ else
                     <p class="crud-meta">@professionName | Skill @link.SkillLevel</p>
                 </div>
                 <div class="crud-actions">
+                    
                     <a class="btn-ghost" asp-action="Details" asp-route-playerId="@link.PlayerProfileId" asp-route-professionId="@link.ProfessionId">Details</a>
+                    @if (User.IsInRole("admin")){
                     <a class="btn-ghost" asp-action="Edit" asp-route-playerId="@link.PlayerProfileId" asp-route-professionId="@link.ProfessionId">Edit</a>
                     <form class="inline-form" asp-action="Delete" asp-route-playerId="@link.PlayerProfileId" asp-route-professionId="@link.ProfessionId" method="post">
                         <button class="btn-danger" type="submit">Delete</button>
                     </form>
+                    }
                 </div>
             </div>
         }
