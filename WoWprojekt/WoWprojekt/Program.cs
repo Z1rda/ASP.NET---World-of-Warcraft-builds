@@ -130,6 +130,7 @@ using (var scope = app.Services.CreateScope())
 
         await EnsureRoleAsync("admin");
         await EnsureRoleAsync("obicanuser");
+        await EnsureRoleAsync("moderator");
 
         var adminEmail = builder.Configuration["AdminUser:Email"] ?? "admin@gmail.com";
         var adminPassword = builder.Configuration["AdminUser:Password"] ?? "Adminpass123";
@@ -179,6 +180,7 @@ using (var scope = app.Services.CreateScope())
 
         await EnsureUserAsync(adminEmail, adminPassword, "Administrator", "admin");
         await EnsureUserAsync(userEmail, userPassword, "Regular Player", "obicanuser");
+        await EnsureUserAsync("moderator@gmail.com", "Moderatorpass123", "Moderator", "moderator");
     }
     catch (Exception ex)
     {
