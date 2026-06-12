@@ -16,7 +16,8 @@ else
                 </div>
                 <div class="crud-actions">
                     <a class="btn-ghost" asp-action="Details" asp-route-id="@raid.Id">Details</a>
-                     @if (User.IsInRole("admin")){
+                     @if (User.IsInRole("admin") || User.IsInRole("moderator"))
+                     {
                     <a class="btn-ghost" asp-action="Edit" asp-route-id="@raid.Id">Edit</a>
                     <form class="inline-form" asp-action="Delete" asp-route-id="@raid.Id" method="post">
                         <button class="btn-danger" type="submit">Delete</button>
