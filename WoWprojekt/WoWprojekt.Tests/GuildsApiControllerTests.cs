@@ -214,4 +214,35 @@ public class GuildsApiControllerTests
 
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
+
+    [Fact]
+    public async Task Post_Returns400_WhenDuplicateName()
+    {
+        var dbName = Guid.NewGuid().ToString();
+        await using var factory = CreateFactory(dbName);
+
+        var client = factory.CreateClient();
+        var dto = new GuildUpsertDto { Name = "Same Guild", Realm = "Silvermoon" };
+
+        await client.PostAsJsonAsync("/api/guilds", dto);
+        var response = await client.PostAsJsonAsync("/api/guilds", dto);
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task Put_Returns400_WhenDuplicateName()
+    {
+        var dbName = Guid.NewGuid().ToString();
+        await using var factory = CreateFactory(dbName);
+
+        var client = factory.CreateClient();
+        await client.PostAsJsonAsync("/api/guilds", new GuildUpsertDto { Name = "Guild One", Realm = "Silvermoon" });
+        var r = await client.PostAsJsonAsync("/api/guilds", new GuildUpsertDto { Name = "Guild Two", Realm = "Silvermoon" });
+        var created = await r.Content.ReadFromJsonAsync<GuildDto>(JsonOptions);
+
+        var response = await client.PutAsJsonAsync($"/api/guilds/{created!.Id}", new GuildUpsertDto { Name = "Guild One", Realm = "Silvermoon" });
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
 }
