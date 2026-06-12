@@ -8,37 +8,37 @@ public class RequestMethodAuthorizationFilter : IAsyncAuthorizationFilter
 {
     public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
     {
-        // Allow endpoints that explicitly allow anonymous
         var endpoint = context.HttpContext.GetEndpoint();
         if (endpoint?.Metadata?.GetMetadata<IAllowAnonymous>() is not null)
-        {
             return;
-        }
 
         var method = context.HttpContext.Request.Method?.ToUpperInvariant() ?? string.Empty;
 
-        // Safe methods: allow anonymous reads
         if (method == "GET" || method == "HEAD" || method == "OPTIONS")
-        {
             return;
-        }
 
-        // For unsafe methods require admin role
         var user = context.HttpContext.User;
-        if (user?.Identity?.IsAuthenticated == true && user.IsInRole("admin"))
-        {
-            return;
-        }
 
-        // If not authenticated -> challenge; if authenticated but not admin -> forbid
         if (user?.Identity?.IsAuthenticated != true)
         {
             context.Result = new ChallengeResult();
+            await Task.CompletedTask;
+            return;
         }
-        else
+
+        if (user.IsInRole("admin"))
+            return;
+
+        // Moderator može samo Edit POST
+        if (user.IsInRole("moderator"))
         {
-            context.Result = new ForbidResult();
+            var routeData = context.RouteData;
+            var action = routeData.Values["action"]?.ToString()?.ToLowerInvariant();
+            if (method == "POST" && action == "edit")
+                return;
         }
+
+        context.Result = new ForbidResult();
 
         await Task.CompletedTask;
     }
