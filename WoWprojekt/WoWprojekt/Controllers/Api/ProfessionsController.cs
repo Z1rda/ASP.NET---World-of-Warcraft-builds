@@ -8,11 +8,11 @@ namespace WoWprojekt.Controllers.Api;
 
 [ApiController]
 [Route("api/professions")]
-public class ProfessionsController : ControllerBase
+public class ProfessionsApiController : ControllerBase
 {
     private readonly ApplicationDbContext _db;
 
-    public ProfessionsController(ApplicationDbContext db)
+    public ProfessionsApiController(ApplicationDbContext db)
     {
         _db = db;
     }

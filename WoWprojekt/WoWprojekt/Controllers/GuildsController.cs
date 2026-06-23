@@ -6,6 +6,7 @@ using WoWprojekt.Models.ViewModels;
 
 namespace WoWprojekt.Controllers;
 
+[Route("Guilds/{action=Index}/{id?}")]
 public class GuildsController : Controller
 {
     private readonly ApplicationDbContext _db;

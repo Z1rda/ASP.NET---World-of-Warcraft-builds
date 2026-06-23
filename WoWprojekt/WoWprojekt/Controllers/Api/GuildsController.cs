@@ -8,11 +8,11 @@ namespace WoWprojekt.Controllers.Api;
 
 [ApiController]
 [Route("api/guilds")]
-public class GuildsController : ControllerBase
+public class GuildsApiController : ControllerBase
 {
     private readonly ApplicationDbContext _db;
 
-    public GuildsController(ApplicationDbContext db)
+    public GuildsApiController(ApplicationDbContext db)
     {
         _db = db;
     }

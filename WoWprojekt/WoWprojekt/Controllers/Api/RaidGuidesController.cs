@@ -8,11 +8,11 @@ namespace WoWprojekt.Controllers.Api;
 
 [ApiController]
 [Route("api/raidguides")]
-public class RaidGuidesController : ControllerBase
+public class RaidGuidesApiController : ControllerBase
 {
     private readonly ApplicationDbContext _db;
 
-    public RaidGuidesController(ApplicationDbContext db)
+    public RaidGuidesApiController(ApplicationDbContext db)
     {
         _db = db;
     }

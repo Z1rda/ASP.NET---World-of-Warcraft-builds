@@ -8,11 +8,11 @@ namespace WoWprojekt.Controllers.Api;
 
 [ApiController]
 [Route("api/talentbuilds")]
-public class TalentBuildsController : ControllerBase
+public class TalentBuildsApiController : ControllerBase
 {
     private readonly ApplicationDbContext _db;
 
-    public TalentBuildsController(ApplicationDbContext db)
+    public TalentBuildsApiController(ApplicationDbContext db)
     {
         _db = db;
     }

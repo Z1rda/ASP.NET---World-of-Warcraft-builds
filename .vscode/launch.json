@@ -5,7 +5,7 @@
       "name": "WoWprojekt (Run)",
       "type": "coreclr",
       "request": "launch",
-      "program": "${workspaceFolder}/WoWprojekt/WoWprojekt/bin/Debug/net10.0/WoWprojekt.dll",
+      "program": "${workspaceFolder}/WoWprojekt/WoWprojekt/bin/Debug/net9.0/WoWprojekt.dll",
       "args": [],
       "cwd": "${workspaceFolder}/WoWprojekt/WoWprojekt",
       "preLaunchTask": "build-wowprojekt",
