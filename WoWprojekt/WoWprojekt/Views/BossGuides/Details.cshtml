@@ -12,12 +12,15 @@
     <p>Difficulty: @Model.DifficultyRating/10</p>
 </div>
 
-@if (!string.IsNullOrWhiteSpace(Model.BossImageUrl))
-{
-    <div class="detail-block boss-detail-media">
-        <img class="boss-detail-image" src="@Model.BossImageUrl" alt="@Model.BossName" />
-    </div>
+@{
+    var placeholderUrl = $"https://placehold.co/96x96/1c1f24/e6dec6?text={Uri.EscapeDataString(Model.BossName)}";
 }
+<div class="detail-block boss-detail-media">
+    <img class="boss-detail-image"
+         src="@(string.IsNullOrWhiteSpace(Model.BossImageUrl) ? placeholderUrl : Model.BossImageUrl)"
+         alt="@Model.BossName"
+         onerror="this.src='@placeholderUrl'; this.onerror=null;" />
+</div>
 
 <div class="detail-block">
     <h3>Tactics</h3>

@@ -55,6 +55,8 @@
                     <a asp-controller="Encyclopedia" asp-action="Realms">Realm Census</a>
                 </div>
 
+                @if (User.IsInRole("admin" )|| User.IsInRole("moderator"))
+                {
                 <div class="nav-group">
                     <h2>Management</h2>
                     <a asp-controller="PlayerProfiles" asp-action="Index">Manage Players</a>
@@ -65,6 +67,7 @@
                     <a asp-controller="TalentBuilds" asp-action="Index">Manage Talents</a>
                     <a asp-controller="PlayerProfessions" asp-action="Index">Manage Player Links</a>
                 </div>
+                }
 
                 <div class="nav-group">
                     <h2>Account</h2>

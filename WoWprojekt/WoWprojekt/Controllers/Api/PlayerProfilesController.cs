@@ -8,11 +8,11 @@ namespace WoWprojekt.Controllers.Api;
 
 [ApiController]
 [Route("api/playerprofiles")]
-public class PlayerProfilesController : ControllerBase
+public class PlayerProfilesApiController : ControllerBase
 {
     private readonly ApplicationDbContext _db;
 
-    public PlayerProfilesController(ApplicationDbContext db)
+    public PlayerProfilesApiController(ApplicationDbContext db)
     {
         _db = db;
     }

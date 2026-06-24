@@ -294,7 +294,7 @@ var assemblies = [
       { "name": "AspNetCoreGeneratedDocument.Views_BossGuides__BossGuideList", "rp": "WoWprojekt_Views_BossGuides__BossGuideList.html", "cl": 0, "ucl": 12, "cal": 12, "tl": 31, "cb": 0, "tb": 24, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_BossGuides_Create", "rp": "WoWprojekt_Views_BossGuides_Create.html", "cl": 0, "ucl": 3, "cal": 3, "tl": 59, "cb": 0, "tb": 16, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_BossGuides_Delete", "rp": "WoWprojekt_Views_BossGuides_Delete.html", "cl": 0, "ucl": 1, "cal": 1, "tl": 20, "cb": 0, "tb": 6, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "AspNetCoreGeneratedDocument.Views_BossGuides_Details", "rp": "WoWprojekt_Views_BossGuides_Details.html", "cl": 0, "ucl": 7, "cal": 7, "tl": 114, "cb": 0, "tb": 14, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "AspNetCoreGeneratedDocument.Views_BossGuides_Details", "rp": "WoWprojekt_Views_BossGuides_Details.html", "cl": 0, "ucl": 9, "cal": 9, "tl": 117, "cb": 0, "tb": 22, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_BossGuides_Edit", "rp": "WoWprojekt_Views_BossGuides_Edit.html", "cl": 0, "ucl": 6, "cal": 6, "tl": 156, "cb": 0, "tb": 20, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_BossGuides_Index", "rp": "WoWprojekt_Views_BossGuides_Index.html", "cl": 0, "ucl": 4, "cal": 4, "tl": 84, "cb": 0, "tb": 6, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_Encyclopedia_Bosses", "rp": "WoWprojekt_Views_Encyclopedia_Bosses.html", "cl": 0, "ucl": 10, "cal": 10, "tl": 43, "cb": 0, "tb": 14, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
@@ -318,7 +318,7 @@ var assemblies = [
       { "name": "AspNetCoreGeneratedDocument.Views_PlayerProfessions_Create", "rp": "WoWprojekt_Views_PlayerProfessions_Create.html", "cl": 0, "ucl": 5, "cal": 5, "tl": 59, "cb": 0, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_PlayerProfessions_Delete", "rp": "WoWprojekt_Views_PlayerProfessions_Delete.html", "cl": 0, "ucl": 1, "cal": 1, "tl": 21, "cb": 0, "tb": 10, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_PlayerProfessions_Details", "rp": "WoWprojekt_Views_PlayerProfessions_Details.html", "cl": 0, "ucl": 1, "cal": 1, "tl": 16, "cb": 0, "tb": 14, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "AspNetCoreGeneratedDocument.Views_PlayerProfessions_Edit", "rp": "WoWprojekt_Views_PlayerProfessions_Edit.html", "cl": 0, "ucl": 1, "cal": 1, "tl": 35, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "AspNetCoreGeneratedDocument.Views_PlayerProfessions_Edit", "rp": "WoWprojekt_Views_PlayerProfessions_Edit.html", "cl": 0, "ucl": 1, "cal": 1, "tl": 35, "cb": 0, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_PlayerProfessions_Index", "rp": "WoWprojekt_Views_PlayerProfessions_Index.html", "cl": 0, "ucl": 4, "cal": 4, "tl": 78, "cb": 0, "tb": 6, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_PlayerProfiles__PlayerProfileList", "rp": "WoWprojekt_Views_PlayerProfiles__PlayerProfileList.html", "cl": 0, "ucl": 12, "cal": 12, "tl": 31, "cb": 0, "tb": 24, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_PlayerProfiles_Create", "rp": "WoWprojekt_Views_PlayerProfiles_Create.html", "cl": 0, "ucl": 1, "cal": 1, "tl": 50, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
@@ -326,6 +326,7 @@ var assemblies = [
       { "name": "AspNetCoreGeneratedDocument.Views_PlayerProfiles_Details", "rp": "WoWprojekt_Views_PlayerProfiles_Details.html", "cl": 0, "ucl": 20, "cal": 20, "tl": 55, "cb": 0, "tb": 24, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_PlayerProfiles_Edit", "rp": "WoWprojekt_Views_PlayerProfiles_Edit.html", "cl": 0, "ucl": 1, "cal": 1, "tl": 51, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_PlayerProfiles_Index", "rp": "WoWprojekt_Views_PlayerProfiles_Index.html", "cl": 0, "ucl": 4, "cal": 4, "tl": 84, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "AspNetCoreGeneratedDocument.Views_PlayerProfiles_Index", "rp": "WoWprojekt_Views_PlayerProfiles_Index.html", "cl": 0, "ucl": 4, "cal": 4, "tl": 84, "cb": 0, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_Professions__ProfessionList", "rp": "WoWprojekt_Views_Professions__ProfessionList.html", "cl": 0, "ucl": 12, "cal": 12, "tl": 30, "cb": 0, "tb": 28, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_Professions_Create", "rp": "WoWprojekt_Views_Professions_Create.html", "cl": 0, "ucl": 1, "cal": 1, "tl": 29, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_Professions_Delete", "rp": "WoWprojekt_Views_Professions_Delete.html", "cl": 0, "ucl": 1, "cal": 1, "tl": 19, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
@@ -333,13 +334,16 @@ var assemblies = [
       { "name": "AspNetCoreGeneratedDocument.Views_Professions_Edit", "rp": "WoWprojekt_Views_Professions_Edit.html", "cl": 0, "ucl": 1, "cal": 1, "tl": 30, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_Professions_Index", "rp": "WoWprojekt_Views_Professions_Index.html", "cl": 0, "ucl": 4, "cal": 4, "tl": 78, "cb": 0, "tb": 6, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_RaidGuides__RaidGuideList", "rp": "WoWprojekt_Views_RaidGuides__RaidGuideList.html", "cl": 0, "ucl": 12, "cal": 12, "tl": 30, "cb": 0, "tb": 28, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "AspNetCoreGeneratedDocument.Views_RaidGuides__RaidGuideList", "rp": "WoWprojekt_Views_RaidGuides__RaidGuideList.html", "cl": 0, "ucl": 11, "cal": 11, "tl": 30, "cb": 0, "tb": 20, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_RaidGuides_Create", "rp": "WoWprojekt_Views_RaidGuides_Create.html", "cl": 0, "ucl": 1, "cal": 1, "tl": 37, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_RaidGuides_Delete", "rp": "WoWprojekt_Views_RaidGuides_Delete.html", "cl": 0, "ucl": 1, "cal": 1, "tl": 20, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_RaidGuides_Details", "rp": "WoWprojekt_Views_RaidGuides_Details.html", "cl": 0, "ucl": 9, "cal": 9, "tl": 37, "cb": 0, "tb": 10, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_RaidGuides_Edit", "rp": "WoWprojekt_Views_RaidGuides_Edit.html", "cl": 0, "ucl": 1, "cal": 1, "tl": 38, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_RaidGuides_Index", "rp": "WoWprojekt_Views_RaidGuides_Index.html", "cl": 0, "ucl": 4, "cal": 4, "tl": 83, "cb": 0, "tb": 6, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "AspNetCoreGeneratedDocument.Views_RaidGuides_Index", "rp": "WoWprojekt_Views_RaidGuides_Index.html", "cl": 0, "ucl": 4, "cal": 4, "tl": 83, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_Shared__AutocompleteSelect", "rp": "WoWprojekt_Views_Shared__AutocompleteSelect.html", "cl": 0, "ucl": 8, "cal": 8, "tl": 33, "cb": 0, "tb": 24, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_Shared__DateTimeControl", "rp": "WoWprojekt_Views_Shared__DateTimeControl.html", "cl": 0, "ucl": 15, "cal": 15, "tl": 47, "cb": 0, "tb": 14, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "AspNetCoreGeneratedDocument.Views_Shared__Layout", "rp": "WoWprojekt_Views_Shared__Layout.html", "cl": 0, "ucl": 3, "cal": 3, "tl": 91, "cb": 0, "tb": 106, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_Shared__LoginPartial", "rp": "WoWprojekt_Views_Shared__LoginPartial.html", "cl": 0, "ucl": 5, "cal": 5, "tl": 27, "cb": 0, "tb": 12, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_Shared_Error", "rp": "WoWprojekt_Views_Shared_Error.html", "cl": 0, "ucl": 4, "cal": 4, "tl": 25, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "AspNetCoreGeneratedDocument.Views_TalentBuilds__TalentBuildList", "rp": "WoWprojekt_Views_TalentBuilds__TalentBuildList.html", "cl": 0, "ucl": 12, "cal": 12, "tl": 31, "cb": 0, "tb": 24, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
@@ -377,22 +381,28 @@ var assemblies = [
       { "name": "WoWprojekt.Authorization.RequestMethodAuthorizationFilter", "rp": "WoWprojekt_RequestMethodAuthorizationFilter.html", "cl": 16, "ucl": 14, "cal": 30, "tl": 45, "cb": 30, "tb": 64, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "WoWprojekt.Controllers.Api.BossGuideImagesController", "rp": "WoWprojekt_BossGuideImagesController.html", "cl": 66, "ucl": 5, "cal": 71, "tl": 118, "cb": 18, "tb": 22, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "WoWprojekt.Controllers.Api.BossGuidesApiController", "rp": "WoWprojekt_BossGuidesApiController.html", "cl": 94, "ucl": 0, "cal": 94, "tl": 145, "cb": 20, "tb": 20, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "WoWprojekt.Controllers.Api.GuildsApiController", "rp": "WoWprojekt_GuildsApiController.html", "cl": 70, "ucl": 10, "cal": 80, "tl": 129, "cb": 17, "tb": 24, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "WoWprojekt.Controllers.Api.GuildsController", "rp": "WoWprojekt_GuildsController.html", "cl": 70, "ucl": 10, "cal": 80, "tl": 129, "cb": 17, "tb": 24, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "WoWprojekt.Controllers.Api.PlayerProfessionsApiController", "rp": "WoWprojekt_PlayerProfessionsApiController.html", "cl": 95, "ucl": 6, "cal": 101, "tl": 156, "cb": 26, "tb": 28, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "WoWprojekt.Controllers.Api.PlayerProfessionsController", "rp": "WoWprojekt_PlayerProfessionsController.html", "cl": 95, "ucl": 6, "cal": 101, "tl": 156, "cb": 26, "tb": 28, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "WoWprojekt.Controllers.Api.PlayerProfilesApiController", "rp": "WoWprojekt_PlayerProfilesApiController.html", "cl": 113, "ucl": 6, "cal": 119, "tl": 176, "cb": 34, "tb": 38, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "WoWprojekt.Controllers.Api.PlayerProfilesController", "rp": "WoWprojekt_PlayerProfilesController.html", "cl": 113, "ucl": 6, "cal": 119, "tl": 176, "cb": 34, "tb": 38, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "WoWprojekt.Controllers.Api.ProfessionsApiController", "rp": "WoWprojekt_ProfessionsApiController.html", "cl": 61, "ucl": 10, "cal": 71, "tl": 118, "cb": 10, "tb": 14, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "WoWprojekt.Controllers.Api.ProfessionsController", "rp": "WoWprojekt_ProfessionsController.html", "cl": 61, "ucl": 10, "cal": 71, "tl": 118, "cb": 10, "tb": 14, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "WoWprojekt.Controllers.Api.RaidGuidesApiController", "rp": "WoWprojekt_RaidGuidesApiController.html", "cl": 62, "ucl": 13, "cal": 75, "tl": 123, "cb": 13, "tb": 20, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "WoWprojekt.Controllers.Api.RaidGuidesController", "rp": "WoWprojekt_RaidGuidesController.html", "cl": 62, "ucl": 13, "cal": 75, "tl": 123, "cb": 13, "tb": 20, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "WoWprojekt.Controllers.Api.TalentBuildFilesController", "rp": "WoWprojekt_TalentBuildFilesController.html", "cl": 62, "ucl": 5, "cal": 67, "tl": 110, "cb": 12, "tb": 16, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "WoWprojekt.Controllers.Api.TalentBuildsApiController", "rp": "WoWprojekt_TalentBuildsApiController.html", "cl": 98, "ucl": 11, "cal": 109, "tl": 163, "cb": 21, "tb": 26, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "WoWprojekt.Controllers.Api.TalentBuildsController", "rp": "WoWprojekt_TalentBuildsController.html", "cl": 98, "ucl": 11, "cal": 109, "tl": 163, "cb": 21, "tb": 26, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "WoWprojekt.Controllers.BossGuidesController", "rp": "WoWprojekt_BossGuidesController.html", "cl": 0, "ucl": 152, "cal": 152, "tl": 241, "cb": 0, "tb": 36, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "WoWprojekt.Controllers.BossGuidesController", "rp": "WoWprojekt_BossGuidesController.html", "cl": 0, "ucl": 191, "cal": 191, "tl": 242, "cb": 0, "tb": 68, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "WoWprojekt.Controllers.EncyclopediaController", "rp": "WoWprojekt_EncyclopediaController.html", "cl": 0, "ucl": 241, "cal": 241, "tl": 327, "cb": 0, "tb": 53, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "WoWprojekt.Controllers.GuildsController", "rp": "WoWprojekt_GuildsController.2.html", "cl": 0, "ucl": 142, "cal": 142, "tl": 227, "cb": 0, "tb": 40, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "WoWprojekt.Controllers.GuildsController", "rp": "WoWprojekt_GuildsController.2.html", "cl": 0, "ucl": 179, "cal": 179, "tl": 228, "cb": 0, "tb": 72, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "WoWprojekt.Controllers.HomeController", "rp": "WoWprojekt_HomeController.html", "cl": 0, "ucl": 9, "cal": 9, "tl": 25, "cb": 0, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "WoWprojekt.Controllers.PlayerProfessionsController", "rp": "WoWprojekt_PlayerProfessionsController.2.html", "cl": 0, "ucl": 151, "cal": 151, "tl": 237, "cb": 0, "tb": 30, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "WoWprojekt.Controllers.PlayerProfilesController", "rp": "WoWprojekt_PlayerProfilesController.2.html", "cl": 0, "ucl": 174, "cal": 174, "tl": 268, "cb": 0, "tb": 40, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "WoWprojekt.Controllers.ProfessionsController", "rp": "WoWprojekt_ProfessionsController.2.html", "cl": 0, "ucl": 149, "cal": 149, "tl": 240, "cb": 0, "tb": 40, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "WoWprojekt.Controllers.RaidGuidesController", "rp": "WoWprojekt_RaidGuidesController.2.html", "cl": 0, "ucl": 149, "cal": 149, "tl": 240, "cb": 0, "tb": 40, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "WoWprojekt.Controllers.TalentBuildsController", "rp": "WoWprojekt_TalentBuildsController.2.html", "cl": 0, "ucl": 160, "cal": 160, "tl": 249, "cb": 0, "tb": 36, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "WoWprojekt.Controllers.PlayerProfessionsController", "rp": "WoWprojekt_PlayerProfessionsController.2.html", "cl": 0, "ucl": 190, "cal": 190, "tl": 238, "cb": 0, "tb": 56, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "WoWprojekt.Controllers.PlayerProfilesController", "rp": "WoWprojekt_PlayerProfilesController.2.html", "cl": 0, "ucl": 217, "cal": 217, "tl": 269, "cb": 0, "tb": 74, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "WoWprojekt.Controllers.ProfessionsController", "rp": "WoWprojekt_ProfessionsController.2.html", "cl": 0, "ucl": 190, "cal": 190, "tl": 241, "cb": 0, "tb": 74, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "WoWprojekt.Controllers.RaidGuidesController", "rp": "WoWprojekt_RaidGuidesController.2.html", "cl": 0, "ucl": 190, "cal": 190, "tl": 241, "cb": 0, "tb": 74, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "WoWprojekt.Controllers.TalentBuildsController", "rp": "WoWprojekt_TalentBuildsController.2.html", "cl": 0, "ucl": 199, "cal": 199, "tl": 250, "cb": 0, "tb": 68, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "WoWprojekt.Data.ApplicationDbContext", "rp": "WoWprojekt_ApplicationDbContext.html", "cl": 52, "ucl": 0, "cal": 52, "tl": 73, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "WoWprojekt.Data.SeedData", "rp": "WoWprojekt_SeedData.html", "cl": 0, "ucl": 605, "cal": 605, "tl": 664, "cb": 0, "tb": 38, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "WoWprojekt.Migrations.AddBossGuideImages", "rp": "WoWprojekt_AddBossGuideImages.html", "cl": 0, "ucl": 664, "cal": 664, "tl": 740, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
@@ -442,6 +452,12 @@ var riskHotspotMetrics = [
 ];
 
 var riskHotspots = [
+  {
+    "assembly": "WoWprojekt", "class": "AspNetCoreGeneratedDocument.Views_Shared__Layout", "reportPath": "WoWprojekt_Views_Shared__Layout.html", "methodName": "\u003CExecuteAsync()", "methodShortName": "\u003CExecuteAsync()", "fileIndex": 0, "line": 58,
+    "metrics": [
+      { "value": 11342, "exceeded": true },
+      { "value": 106, "exceeded": true },
+    ]},
   {
     "assembly": "WoWprojekt", "class": "AspNetCoreGeneratedDocument.Views_BossGuides_Edit", "reportPath": "WoWprojekt_Views_BossGuides_Edit.html", "methodName": "\u003CExecuteAsync()", "methodShortName": "\u003CExecuteAsync()", "fileIndex": 0, "line": 28,
     "metrics": [
@@ -519,6 +535,12 @@ var riskHotspots = [
     "metrics": [
       { "value": 506, "exceeded": true },
       { "value": 22, "exceeded": true },
+    ]},
+  {
+    "assembly": "WoWprojekt", "class": "AspNetCoreGeneratedDocument.Views_RaidGuides__RaidGuideList", "reportPath": "WoWprojekt_Views_RaidGuides__RaidGuideList.html", "methodName": "ExecuteAsync()", "methodShortName": "ExecuteAsync()", "fileIndex": 0, "line": 3,
+    "metrics": [
+      { "value": 420, "exceeded": true },
+      { "value": 20, "exceeded": true },
     ]},
   {
     "assembly": "WoWprojekt", "class": "AspNetCoreGeneratedDocument.Views_Guilds__GuildList", "reportPath": "WoWprojekt_Views_Guilds__GuildList.html", "methodName": "ExecuteAsync()", "methodShortName": "ExecuteAsync()", "fileIndex": 0, "line": 3,
@@ -629,6 +651,12 @@ var riskHotspots = [
       { "value": 12, "exceeded": false },
     ]},
   {
+    "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.GuildsController", "reportPath": "WoWprojekt_GuildsController.2.html", "methodName": "Edit()", "methodShortName": "Edit()", "fileIndex": 0, "line": 123,
+    "metrics": [
+      { "value": 156, "exceeded": true },
+      { "value": 12, "exceeded": false },
+    ]},
+  {
     "assembly": "WoWprojekt", "class": "WoWprojekt.Data.SeedData", "reportPath": "WoWprojekt_SeedData.html", "methodName": "EnsureGuilds(WoWprojekt.Data.ApplicationDbContext)", "methodShortName": "EnsureGuilds(...)", "fileIndex": 0, "line": 556,
     "metrics": [
       { "value": 156, "exceeded": true },
@@ -695,6 +723,12 @@ var riskHotspots = [
       { "value": 10, "exceeded": false },
     ]},
   {
+    "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.BossGuidesController", "reportPath": "WoWprojekt_BossGuidesController.html", "methodName": "Edit()", "methodShortName": "Edit()", "fileIndex": 0, "line": 124,
+    "metrics": [
+      { "value": 110, "exceeded": true },
+      { "value": 10, "exceeded": false },
+    ]},
+  {
     "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.EncyclopediaController", "reportPath": "WoWprojekt_EncyclopediaController.html", "methodName": "Raids()", "methodShortName": "Raids()", "fileIndex": 0, "line": 45,
     "metrics": [
       { "value": 110, "exceeded": true },
@@ -707,7 +741,19 @@ var riskHotspots = [
       { "value": 10, "exceeded": false },
     ]},
   {
+    "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.PlayerProfilesController", "reportPath": "WoWprojekt_PlayerProfilesController.2.html", "methodName": "Edit()", "methodShortName": "Edit()", "fileIndex": 0, "line": 150,
+    "metrics": [
+      { "value": 110, "exceeded": true },
+      { "value": 10, "exceeded": false },
+    ]},
+  {
     "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.ProfessionsController", "reportPath": "WoWprojekt_ProfessionsController.2.html", "methodName": "Edit()", "methodShortName": "Edit()", "fileIndex": 0, "line": 139,
+    "metrics": [
+      { "value": 110, "exceeded": true },
+      { "value": 10, "exceeded": false },
+    ]},
+  {
+    "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.ProfessionsController", "reportPath": "WoWprojekt_ProfessionsController.2.html", "methodName": "Edit()", "methodShortName": "Edit()", "fileIndex": 0, "line": 140,
     "metrics": [
       { "value": 110, "exceeded": true },
       { "value": 10, "exceeded": false },
@@ -719,7 +765,19 @@ var riskHotspots = [
       { "value": 10, "exceeded": false },
     ]},
   {
+    "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.RaidGuidesController", "reportPath": "WoWprojekt_RaidGuidesController.2.html", "methodName": "Edit()", "methodShortName": "Edit()", "fileIndex": 0, "line": 139,
+    "metrics": [
+      { "value": 110, "exceeded": true },
+      { "value": 10, "exceeded": false },
+    ]},
+  {
     "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.TalentBuildsController", "reportPath": "WoWprojekt_TalentBuildsController.2.html", "methodName": "Edit()", "methodShortName": "Edit()", "fileIndex": 0, "line": 130,
+    "metrics": [
+      { "value": 110, "exceeded": true },
+      { "value": 10, "exceeded": false },
+    ]},
+  {
+    "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.TalentBuildsController", "reportPath": "WoWprojekt_TalentBuildsController.2.html", "methodName": "Edit()", "methodShortName": "Edit()", "fileIndex": 0, "line": 131,
     "metrics": [
       { "value": 110, "exceeded": true },
       { "value": 10, "exceeded": false },
@@ -743,7 +801,19 @@ var riskHotspots = [
       { "value": 8, "exceeded": false },
     ]},
   {
+    "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.GuildsController", "reportPath": "WoWprojekt_GuildsController.2.html", "methodName": "Create()", "methodShortName": "Create()", "fileIndex": 0, "line": 87,
+    "metrics": [
+      { "value": 72, "exceeded": true },
+      { "value": 8, "exceeded": false },
+    ]},
+  {
     "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.PlayerProfessionsController", "reportPath": "WoWprojekt_PlayerProfessionsController.2.html", "methodName": "Edit()", "methodShortName": "Edit()", "fileIndex": 0, "line": 135,
+    "metrics": [
+      { "value": 72, "exceeded": true },
+      { "value": 8, "exceeded": false },
+    ]},
+  {
+    "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.PlayerProfessionsController", "reportPath": "WoWprojekt_PlayerProfessionsController.2.html", "methodName": "Edit()", "methodShortName": "Edit()", "fileIndex": 0, "line": 136,
     "metrics": [
       { "value": 72, "exceeded": true },
       { "value": 8, "exceeded": false },
@@ -803,13 +873,37 @@ var riskHotspots = [
       { "value": 6, "exceeded": false },
     ]},
   {
+    "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.BossGuidesController", "reportPath": "WoWprojekt_BossGuidesController.html", "methodName": "BuildIndexViewModelAsync()", "methodShortName": "BuildIndexViewModelAsync()", "fileIndex": 0, "line": 208,
+    "metrics": [
+      { "value": 42, "exceeded": true },
+      { "value": 6, "exceeded": false },
+    ]},
+  {
+    "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.BossGuidesController", "reportPath": "WoWprojekt_BossGuidesController.html", "methodName": "Create()", "methodShortName": "Create()", "fileIndex": 0, "line": 86,
+    "metrics": [
+      { "value": 42, "exceeded": true },
+      { "value": 6, "exceeded": false },
+    ]},
+  {
     "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.GuildsController", "reportPath": "WoWprojekt_GuildsController.2.html", "methodName": "BuildIndexViewModelAsync()", "methodShortName": "BuildIndexViewModelAsync()", "fileIndex": 0, "line": 203,
     "metrics": [
       { "value": 42, "exceeded": true },
       { "value": 6, "exceeded": false },
     ]},
   {
+    "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.GuildsController", "reportPath": "WoWprojekt_GuildsController.2.html", "methodName": "BuildIndexViewModelAsync()", "methodShortName": "BuildIndexViewModelAsync()", "fileIndex": 0, "line": 204,
+    "metrics": [
+      { "value": 42, "exceeded": true },
+      { "value": 6, "exceeded": false },
+    ]},
+  {
     "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.PlayerProfessionsController", "reportPath": "WoWprojekt_PlayerProfessionsController.2.html", "methodName": "BuildIndexViewModelAsync()", "methodShortName": "BuildIndexViewModelAsync()", "fileIndex": 0, "line": 196,
+    "metrics": [
+      { "value": 42, "exceeded": true },
+      { "value": 6, "exceeded": false },
+    ]},
+  {
+    "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.PlayerProfessionsController", "reportPath": "WoWprojekt_PlayerProfessionsController.2.html", "methodName": "BuildIndexViewModelAsync()", "methodShortName": "BuildIndexViewModelAsync()", "fileIndex": 0, "line": 197,
     "metrics": [
       { "value": 42, "exceeded": true },
       { "value": 6, "exceeded": false },
@@ -827,6 +921,18 @@ var riskHotspots = [
       { "value": 6, "exceeded": false },
     ]},
   {
+    "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.PlayerProfilesController", "reportPath": "WoWprojekt_PlayerProfilesController.2.html", "methodName": "BuildIndexViewModelAsync()", "methodShortName": "BuildIndexViewModelAsync()", "fileIndex": 0, "line": 220,
+    "metrics": [
+      { "value": 42, "exceeded": true },
+      { "value": 6, "exceeded": false },
+    ]},
+  {
+    "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.PlayerProfilesController", "reportPath": "WoWprojekt_PlayerProfilesController.2.html", "methodName": "Create()", "methodShortName": "Create()", "fileIndex": 0, "line": 112,
+    "metrics": [
+      { "value": 42, "exceeded": true },
+      { "value": 6, "exceeded": false },
+    ]},
+  {
     "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.ProfessionsController", "reportPath": "WoWprojekt_ProfessionsController.2.html", "methodName": "BuildIndexViewModelAsync()", "methodShortName": "BuildIndexViewModelAsync()", "fileIndex": 0, "line": 219,
     "metrics": [
       { "value": 42, "exceeded": true },
@@ -834,6 +940,18 @@ var riskHotspots = [
     ]},
   {
     "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.ProfessionsController", "reportPath": "WoWprojekt_ProfessionsController.2.html", "methodName": "Create()", "methodShortName": "Create()", "fileIndex": 0, "line": 104,
+    "metrics": [
+      { "value": 42, "exceeded": true },
+      { "value": 6, "exceeded": false },
+    ]},
+  {
+    "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.ProfessionsController", "reportPath": "WoWprojekt_ProfessionsController.2.html", "methodName": "BuildIndexViewModelAsync()", "methodShortName": "BuildIndexViewModelAsync()", "fileIndex": 0, "line": 220,
+    "metrics": [
+      { "value": 42, "exceeded": true },
+      { "value": 6, "exceeded": false },
+    ]},
+  {
+    "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.ProfessionsController", "reportPath": "WoWprojekt_ProfessionsController.2.html", "methodName": "Create()", "methodShortName": "Create()", "fileIndex": 0, "line": 105,
     "metrics": [
       { "value": 42, "exceeded": true },
       { "value": 6, "exceeded": false },
@@ -851,6 +969,18 @@ var riskHotspots = [
       { "value": 6, "exceeded": false },
     ]},
   {
+    "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.RaidGuidesController", "reportPath": "WoWprojekt_RaidGuidesController.2.html", "methodName": "BuildIndexViewModelAsync()", "methodShortName": "BuildIndexViewModelAsync()", "fileIndex": 0, "line": 219,
+    "metrics": [
+      { "value": 42, "exceeded": true },
+      { "value": 6, "exceeded": false },
+    ]},
+  {
+    "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.RaidGuidesController", "reportPath": "WoWprojekt_RaidGuidesController.2.html", "methodName": "Create()", "methodShortName": "Create()", "fileIndex": 0, "line": 104,
+    "metrics": [
+      { "value": 42, "exceeded": true },
+      { "value": 6, "exceeded": false },
+    ]},
+  {
     "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.TalentBuildsController", "reportPath": "WoWprojekt_TalentBuildsController.2.html", "methodName": "BuildIndexViewModelAsync()", "methodShortName": "BuildIndexViewModelAsync()", "fileIndex": 0, "line": 214,
     "metrics": [
       { "value": 42, "exceeded": true },
@@ -858,6 +988,18 @@ var riskHotspots = [
     ]},
   {
     "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.TalentBuildsController", "reportPath": "WoWprojekt_TalentBuildsController.2.html", "methodName": "Create()", "methodShortName": "Create()", "fileIndex": 0, "line": 92,
+    "metrics": [
+      { "value": 42, "exceeded": true },
+      { "value": 6, "exceeded": false },
+    ]},
+  {
+    "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.TalentBuildsController", "reportPath": "WoWprojekt_TalentBuildsController.2.html", "methodName": "BuildIndexViewModelAsync()", "methodShortName": "BuildIndexViewModelAsync()", "fileIndex": 0, "line": 215,
+    "metrics": [
+      { "value": 42, "exceeded": true },
+      { "value": 6, "exceeded": false },
+    ]},
+  {
+    "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.TalentBuildsController", "reportPath": "WoWprojekt_TalentBuildsController.2.html", "methodName": "Create()", "methodShortName": "Create()", "fileIndex": 0, "line": 93,
     "metrics": [
       { "value": 42, "exceeded": true },
       { "value": 6, "exceeded": false },
@@ -872,6 +1014,12 @@ var riskHotspots = [
     "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.Api.BossGuideImagesController", "reportPath": "WoWprojekt_BossGuideImagesController.html", "methodName": "Upload()", "methodShortName": "Upload()", "fileIndex": 0, "line": 45,
     "metrics": [
       { "value": 16, "exceeded": false },
+      { "value": 16, "exceeded": true },
+    ]},
+  {
+    "assembly": "WoWprojekt", "class": "WoWprojekt.Controllers.Api.PlayerProfilesApiController", "reportPath": "WoWprojekt_PlayerProfilesApiController.html", "methodName": "GetAll()", "methodShortName": "GetAll()", "fileIndex": 0, "line": 22,
+    "metrics": [
+      { "value": 17, "exceeded": false },
       { "value": 16, "exceeded": true },
     ]},
   {

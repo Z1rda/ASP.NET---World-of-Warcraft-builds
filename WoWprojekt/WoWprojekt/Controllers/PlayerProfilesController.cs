@@ -7,6 +7,7 @@ using WoWprojekt.Models.ViewModels;
 
 namespace WoWprojekt.Controllers;
 
+[Route("PlayerProfiles/{action=Index}/{id?}")]
 public class PlayerProfilesController : Controller
 {
     private readonly ApplicationDbContext _db;
