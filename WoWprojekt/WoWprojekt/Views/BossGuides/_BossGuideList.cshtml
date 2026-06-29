@@ -20,9 +20,8 @@ else
                     @if (User.IsInRole("admin") || User.IsInRole("moderator"))
                     {
                         <a class="btn-ghost" asp-action="Edit" asp-route-id="@boss.Id">Edit</a>
-                        <form class="inline-form" asp-action="Delete" asp-route-id="@boss.Id" method="post">
-                            <button class="btn-danger" type="submit">Delete</button>
-                        </form>
+                        <a class="btn-danger" asp-action="Delete" asp-route-id="@boss.Id">Delete</a>
+
                     }
                 </div>
             </div>

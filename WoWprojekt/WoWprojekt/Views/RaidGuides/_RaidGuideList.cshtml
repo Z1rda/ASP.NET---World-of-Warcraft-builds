@@ -19,9 +19,8 @@ else
                      @if (User.IsInRole("admin") || User.IsInRole("moderator"))
                      {
                     <a class="btn-ghost" asp-controller="RaidGuides" asp-action="Edit" asp-route-id="@raid.Id">Edit</a>
-                    <form class="inline-form" asp-controller="RaidGuides" asp-action="Delete" asp-route-id="@raid.Id" method="post">
-                        <button class="btn-danger" type="submit">Delete</button>
-                    </form>
+                    
+                    <a class="btn-danger" asp-action="Delete" asp-route-id="@raid.Id">Delete</a>
                     }
                 </div>
             </div>
